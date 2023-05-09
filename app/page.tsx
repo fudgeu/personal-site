@@ -23,10 +23,53 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.pageSection}>
+      <div className={styles.splitPageSection}>
         <div className={styles.aboutContent}>
-          <h2>about</h2>
-          <p>blah blah blah blah</p>
+
+          <div className={styles.splitSection} >
+            <h2>about me</h2>
+          </div>
+
+          <div className={styles.cardContainer}>
+
+            <div className={styles.aboutCard}>
+              <h3><b>welcome!</b></h3>
+              <p>lorem ipsum dolor blah blah blah lsdfsd jmowk wvke</p>
+            </div>  
+
+            <div className={styles.aboutCard}>
+              <h3><b>interests</b></h3>
+              <p>banana shooter and rtoblox</p>
+            </div>
+            
+
+            <div className={styles.aboutCard}>
+              <h3><b>my stack</b></h3>
+              <p>- react</p>
+              <p>- next.js</p>
+            </div>
+
+            <div className={styles.aboutCard}>
+              <h3><b>favorite things</b></h3>
+              <p>bread bread breaaad bred bead bread bread</p>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div className={styles.pageSection}>
+        <div className={styles.projectsContent}>
+          <h2>projects</h2>
+          <p>project 1 2 and 3</p>
+        </div>
+      </div>
+
+      <div className={styles.pageSection}>
+        <div className={styles.contactContent}>
+          <h2>contact</h2>
+          <p>do not</p>
         </div>
       </div>
 

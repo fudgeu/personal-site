@@ -38,6 +38,9 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --page-section-padding: 3em;
+  --page-section-padding-left: 13em;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,6 +125,11 @@ h3 {
 
 /* Mobile */
 @media (max-width: 700px) {
+
+  :root {
+    --page-section-padding-left: var(--page-section-padding);
+  }
+
   h1 {
     font-size: 4em;
   }

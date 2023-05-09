@@ -8,9 +8,15 @@
 }
 
 .pageSection {
-  padding: 3em;
-  padding-left: 13em;
+  padding: var(--page-section-padding);
+  padding-left: var(--page-section-padding-left);
   min-height: 100%;
+  scroll-snap-align: start;
+}
+
+.splitPageSection {
+  padding: var(--page-section-padding);
+  padding-left: var(--page-section-padding-left);
   scroll-snap-align: start;
 }
 
@@ -48,7 +54,18 @@
   color: #aaaaaa
 }
 
-/* about page */
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  padding: 2em 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: var(--page-section-padding);
+  flex-wrap: wrap;
+}
+
+/* about section */
 
 .aboutContent {
   display: flex;
@@ -57,22 +74,50 @@
   justify-content: center;
 }
 
+.aboutCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  padding: 1.5em;
+  border: solid 2px #ffffff10;
+  border-radius: 0.75em;
+  min-width: 18em;
+  max-width: 32em;
+  height: 18em;
+  scroll-snap-align: start;
+  transition: background-color 0.1s, backdrop-filter 0.1s;
+}
+
+.aboutCard:hover {
+  background-color: #ffffff07;
+  backdrop-filter: blur(0.4em);
+}
+
+/* projects section */
+
+.projectsContent {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: center;
+}
+
+/* contact section */
+
+.contactContent {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  justify-content: center;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    background: rgba(var(--card-rgb), 0.1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
 
-  .card:hover span {
-    transform: translateX(4px);
-  }
 }
 
 @media (prefers-reduced-motion) {
-  .card:hover span {
-    transform: none;
-  }
+
 }
 
 /* Mobile */
@@ -88,8 +133,18 @@
     height: 4em;
   }
 
-  .pageSection {
-    padding: 3em;
+  .splitPageSection {
+    padding: var(--page-section-padding) 0;
+  }
+
+  .splitSection {
+    padding: 0 var(--page-section-padding);
+  }
+
+  .cardContainer {
+    padding-left: var(--page-section-padding);
+    padding-right: var(--page-section-padding);
+    flex-wrap: nowrap;
   }
 }
 
