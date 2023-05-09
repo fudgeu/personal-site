@@ -17,6 +17,7 @@
 .splitPageSection {
   padding: var(--page-section-padding);
   padding-left: var(--page-section-padding-left);
+  min-height: 100%;
   scroll-snap-align: start;
 }
 
