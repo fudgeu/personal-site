@@ -4,21 +4,27 @@ import { useRef } from 'react'
 import styles from './style.module.css'
 import useOnScreen from '@/app/hooks/useOnScreen'
 import clsx from 'clsx'
+import { useInView } from 'react-intersection-observer'
 
 type AboutCardProps = {
   children: React.ReactNode
 }
 
+const inViewOptions = {
+	root: null,
+	rootMargin: "0px",
+	threshold: 0.75
+}
+
 export default function AboutCard({ children }: AboutCardProps) {
 
-	const ref = useRef<HTMLDivElement>(null)
-  const isVisible = useOnScreen(ref)
+	const { ref, inView } = useInView(inViewOptions)
 	
 	return (
 		<div 
 			className={clsx({
 				[styles.aboutCard]: true,
-				[styles.aboutCardActive]: isVisible
+				[styles.aboutCardActive]: inView
 			})} 
 			ref={ref}
 		>
