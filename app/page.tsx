@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import CardContainer from './components/cardContainer/cardContainer'
+import AboutCard from './components/aboutCard/aboutCard'
 
 export default function Home() {
   return (
@@ -30,31 +32,31 @@ export default function Home() {
             <h2>about me</h2>
           </div>
 
-          <div className={styles.cardContainer}>
+          <CardContainer>
 
-            <div className={styles.aboutCard}>
+            <AboutCard>
               <h3><b>welcome!</b></h3>
               <p>lorem ipsum dolor blah blah blah lsdfsd jmowk wvke</p>
-            </div>  
+            </AboutCard>  
 
-            <div className={styles.aboutCard}>
+            <AboutCard>
               <h3><b>interests</b></h3>
               <p>banana shooter and rtoblox</p>
-            </div>
+            </AboutCard>
             
 
-            <div className={styles.aboutCard}>
+            <AboutCard>
               <h3><b>my stack</b></h3>
               <p>- react</p>
               <p>- next.js</p>
-            </div>
+            </AboutCard>
 
-            <div className={styles.aboutCard}>
+            <AboutCard>
               <h3><b>favorite things</b></h3>
               <p>bread bread breaaad bred bead bread bread</p>
-            </div>
+            </AboutCard>
 
-          </div>
+          </CardContainer>
 
         </div>
       </div>

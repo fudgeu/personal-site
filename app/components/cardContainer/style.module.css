@@ -1,0 +1,45 @@
+.cardContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+	padding: 2em var(--page-section-padding);
+	padding-left: var(--page-section-padding-left);
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--page-section-padding-left);
+  flex-wrap: wrap;
+	max-height: 60em; /* limit to 2 cards */
+	align-content: flex-start;
+	-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollButtons {
+	visibility: hidden;
+	padding-left: var(--page-section-padding-left);
+	display: flex;
+	gap: 1em;
+}
+
+.cards::-webkit-scrollbar { 
+	display: none;
+}
+
+/* Limited height or width, including mobile */
+@media (max-height: 850px) or (max-width: 1125px) {
+  .cards {
+		padding-right: 50em;
+		flex-direction: column;
+		max-height: 32em; /* limit to 1 card height */
+  }
+
+	.scrollButtons {
+		visibility: visible;
+	}
+}

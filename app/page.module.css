@@ -15,10 +15,16 @@
 }
 
 .splitPageSection {
-  padding: var(--page-section-padding);
-  padding-left: var(--page-section-padding-left);
+  /*padding: var(--page-section-padding);
+  padding-left: var(--page-section-padding-left);*/
+	padding: var(--page-section-padding) 0;
   min-height: 100%;
   scroll-snap-align: start;
+}
+
+.splitSection {
+	padding: 0 var(--page-section-padding);
+	padding-left: var(--page-section-padding-left)
 }
 
 .navBarContainer {
@@ -33,7 +39,7 @@
   width: 4em;
   height: 100%;
   border: solid 2px #ffffff10;
-  border-radius: 0.75em;
+  border-radius: var(--border-radius);
 }
 
 .homeContent {
@@ -55,17 +61,6 @@
   color: #aaaaaa
 }
 
-.cardContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 2em;
-  padding: 2em 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding: var(--page-section-padding);
-  flex-wrap: wrap;
-}
-
 /* about section */
 
 .aboutContent {
@@ -73,25 +68,6 @@
   flex-direction: column;
   min-height: 100%;
   justify-content: center;
-}
-
-.aboutCard {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75em;
-  padding: 1.5em;
-  border: solid 2px #ffffff10;
-  border-radius: 0.75em;
-  min-width: 18em;
-  max-width: 32em;
-  height: 18em;
-  scroll-snap-align: start;
-  transition: background-color 0.1s, backdrop-filter 0.1s;
-}
-
-.aboutCard:hover {
-  background-color: #ffffff07;
-  backdrop-filter: blur(0.4em);
 }
 
 /* projects section */
@@ -140,12 +116,6 @@
 
   .splitSection {
     padding: 0 var(--page-section-padding);
-  }
-
-  .cardContainer {
-    padding-left: var(--page-section-padding);
-    padding-right: var(--page-section-padding);
-    flex-wrap: nowrap;
   }
 }
 
