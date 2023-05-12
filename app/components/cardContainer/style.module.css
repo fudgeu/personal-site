@@ -1,7 +1,6 @@
 .cardContainer {
 	display: flex;
 	flex-direction: column;
-	gap: 1em;
 }
 
 .cards {
@@ -24,7 +23,18 @@
 	visibility: hidden;
 	padding-left: var(--page-section-padding-left);
 	display: flex;
-	gap: 1em;
+	gap: 2em;
+}
+
+.scrollButton {
+	all: unset;
+	padding: 0.25em 0.75em;
+	border-radius: var(--border-radius);
+	transition: background-color 0.1s;
+}
+
+.scrollButton:active {
+	background-color: var(--container-bg-color);
 }
 
 .cards::-webkit-scrollbar { 
@@ -34,12 +44,29 @@
 /* Limited height or width, including mobile */
 @media (max-height: 850px) or (max-width: 1125px) {
   .cards {
-		padding-right: 50em;
 		flex-direction: column;
 		max-height: 32em; /* limit to 1 card height */
   }
 
 	.scrollButtons {
 		visibility: visible;
+	}
+}
+
+
+/* Non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+	.scrollButton {
+		border: solid 2px transparent;
+		transition: border 0.1s, transform 0.1s, background-color 0.1s;
+	}
+
+	.scrollButton:hover {
+		cursor: pointer;
+		border: solid 2px var(--border-color);
+	}
+
+	.scrollButton:active {
+		transform: scale(0.95);
 	}
 }

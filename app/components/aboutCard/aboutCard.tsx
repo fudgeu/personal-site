@@ -2,7 +2,6 @@
 
 import { useRef } from 'react'
 import styles from './style.module.css'
-import useOnScreen from '@/app/hooks/useOnScreen'
 import clsx from 'clsx'
 import { useInView } from 'react-intersection-observer'
 

@@ -7,6 +7,8 @@
   --page-section-padding: 3em;
   --page-section-padding-left: 13em;
   --border-radius: 0.75em;
+	--border-color: #ffffff10;
+	--container-bg-color: #ffffff07;
 }
 
 @media (prefers-color-scheme: dark) {
