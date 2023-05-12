@@ -5,6 +5,8 @@
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   background: linear-gradient(52deg, #000917, #000000, #0d0017);
+	scroll-behavior: smooth;
+
 }
 
 .pageSection {
@@ -25,21 +27,6 @@
 .splitSection {
 	padding: 0 var(--page-section-padding);
 	padding-left: var(--page-section-padding-left)
-}
-
-.navBarContainer {
-  height: 100%;
-  position: absolute;
-  padding: 3em;
-}
-
-.navBar {
-  background-color: #ffffff07;
-  backdrop-filter: blur(0.4em);
-  width: 4em;
-  height: 100%;
-  border: solid 2px #ffffff10;
-  border-radius: var(--border-radius);
 }
 
 .homeContent {
@@ -99,17 +86,6 @@
 
 /* Mobile */
 @media (max-width: 700px) {
-  .navBarContainer {
-    width: 100%;
-    height: auto;
-    bottom: 0px;
-  }
-
-  .navBar {
-    width: 100%;
-    height: 4em;
-  }
-
   .splitPageSection {
     padding: var(--page-section-padding) 0;
   }

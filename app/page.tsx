@@ -1,17 +1,28 @@
-import Image from 'next/image'
+'use client'
+
 import styles from './page.module.css'
 import CardContainer from './components/cardContainer/cardContainer'
 import AboutCard from './components/aboutCard/aboutCard'
+import NavBar from './components/navbar/navbar'
+import { useInView } from 'react-intersection-observer'
+
+const inViewOptions = {
+	root: null,
+	rootMargin: "0px",
+	threshold: 0.51
+}
 
 export default function Home() {
+
+	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
+	const { ref: aboutRef, inView: aboutInView } = useInView(inViewOptions)
+	const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions)
+	const { ref: contactRef, inView: contactInView } = useInView(inViewOptions)
+
   return (
     <main className={styles.main}>
 
-      <div className={styles.navBarContainer} >
-        <div className={styles.navBar} />
-      </div>
-
-      <div className={styles.pageSection}>
+      <div id="home" className={styles.pageSection} ref={homeRef}>
         <div className={styles.homeContent}>
 
           <div className={styles.nameTag}>
@@ -25,7 +36,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.splitPageSection}>
+      <div id="about" className={styles.splitPageSection} ref={aboutRef}>
         <div className={styles.aboutContent}>
 
           <div className={styles.splitSection} >
@@ -61,19 +72,26 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.pageSection}>
+      <div id="projects" className={styles.pageSection} ref={projectsRef}>
         <div className={styles.projectsContent}>
           <h2>projects</h2>
           <p>project 1 2 and 3</p>
         </div>
       </div>
 
-      <div className={styles.pageSection}>
+      <div id="contact" className={styles.pageSection} ref={contactRef}>
         <div className={styles.contactContent}>
           <h2>contact</h2>
           <p>do not</p>
         </div>
       </div>
+
+			<NavBar 
+				homeInView={homeInView}
+				aboutInView={aboutInView}
+				projectsInView={projectsInView}
+				contactInView={contactInView}
+			/>
 
     </main>
   )

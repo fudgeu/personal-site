@@ -28,10 +28,10 @@ export default function CardContainer({ children }: CardContainerProps) {
 				{children}
 			</div>
 			<div className={styles.scrollButtons}>
-				<button className={styles.scrollButton} onClick={() => scroll(-10)}>
+				<button className={styles.scrollButton} onClick={() => scroll(-50)}>
 					<Image src="/arrow_back.svg" width={arrowSize} height={arrowSize} alt="Scroll back" />
 				</button>
-				<button className={styles.scrollButton} onClick={() => scroll(10)}>
+				<button className={styles.scrollButton} onClick={() => scroll(50)}>
 					<Image src="/arrow_forward.svg" width={arrowSize} height={arrowSize} alt="Scroll forward" />
 				</button>
 			</div>
