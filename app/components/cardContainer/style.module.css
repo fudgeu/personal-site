@@ -28,6 +28,7 @@
 
 .scrollButton {
 	all: unset;
+	display: flex;
 	padding: 0.25em 0.75em;
 	border-radius: var(--border-radius);
 	transition: background-color 0.1s;

@@ -1,4 +1,7 @@
 .navItem {
+	display: flex;
+	-webkit-user-drag: none;
+	user-select: none;
 	transform: scale(0.85);
 	opacity: 0.35;
 	transition: transform 0.1s, opacity 0.1s;
@@ -6,21 +9,29 @@
 
 .navItemContainer {
 	padding: 0.35em;
-	border: solid 2px transparent;
 	border-radius: var(--border-radius);
-	transition: border 0.1s, background-color 0.1s, transform 0.1s;
-}
-
-.navItemContainer:hover {
-	border: solid 2px var(--container-bg-color);
-	background-color: var(--container-bg-color);
+	transition: background-color 0.1s, transform 0.1s;
 }
 
 .navItemContainer:active {
+	background-color: var(--container-bg-color);
 	transform: scale(0.95);
 }
 
 .selectedNavItem {
 	transform: scale(1.1);
 	opacity: 1;
+}
+
+/* Non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+	.navItemContainer {
+		border: solid 2px transparent;
+		transition: border 0.1s, transform 0.1s, background-color 0.1s;
+	}
+
+	.navItemContainer:hover {
+		border: solid 2px var(--container-bg-color);
+		background-color: var(--container-bg-color);
+	}
 }
