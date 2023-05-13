@@ -4,7 +4,7 @@
   height: 100%;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  background: linear-gradient(52deg, #000917, #000000, #0d0017);
+  background: linear-gradient(52deg, #0d0017, #000000, #000917);
 	scroll-behavior: smooth;
 
 }

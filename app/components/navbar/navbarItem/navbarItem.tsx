@@ -13,7 +13,7 @@ const iconSize = 35
 
 export default function NavBarItem({ id, altName, isActive }: NavBarItemProps) {
 	return (
-		<a href={`/#${id}`}>
+		<a href={`/#${id}`} className={styles.navItemContainer}>
 			<Image className={
 				clsx({
 					[styles.navItem]: true,
