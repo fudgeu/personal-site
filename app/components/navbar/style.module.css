@@ -1,7 +1,7 @@
 .navBarContainer {
   height: 100%;
   position: absolute;
-  padding: 3em;
+  padding: var(--page-section-padding);
 }
 
 .navBar {

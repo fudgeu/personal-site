@@ -5,6 +5,11 @@ import CardContainer from './components/cardContainer/cardContainer'
 import AboutCard from './components/aboutCard/aboutCard'
 import NavBar from './components/navbar/navbar'
 import { useInView } from 'react-intersection-observer'
+import ProjectCard from './components/projectCard/projectCard'
+import ImageGallery from './components/imageGallery/imageGallery'
+import Image from 'next/image';
+import GalImage from './components/imageGallery/galImage'
+
 
 const inViewOptions = {
 	root: null,
@@ -72,10 +77,45 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="projects" className={styles.pageSection} ref={projectsRef}>
+      <div id="projects" className={styles.splitPageSection} ref={projectsRef}>
         <div className={styles.projectsContent}>
-          <h2>projects</h2>
-          <p>project 1 2 and 3</p>
+
+					<div className={styles.splitSection}>
+						<h2>projects</h2>
+					</div>
+          
+					<CardContainer>
+
+						<ProjectCard>
+							<h3><b>Playlist</b></h3>
+							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+							<p>written using the Fabric toolchain</p>
+						</ProjectCard>
+
+						<ProjectCard>
+							<h3><b>Refont</b></h3>
+							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+							<p>written using the Fabric toolchain</p>
+						</ProjectCard>
+					
+						<ProjectCard>
+							<h3><b>Classabull</b></h3>
+							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+							<p>written using the Fabric toolchain</p>
+						</ProjectCard>
+
+						<ProjectCard>
+							<h3><b>this website!</b></h3>
+							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+							<p>written using the Fabric toolchain</p>
+						</ProjectCard>
+
+          </CardContainer>
+
         </div>
       </div>
 

@@ -12,18 +12,23 @@
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   scroll-padding-left: var(--page-section-padding-left);
-  flex-wrap: wrap;
-	max-height: 60em; /* limit to 2 cards */
 	align-content: flex-start;
 	-ms-overflow-style: none;
   scrollbar-width: none;
 }
 
+.cards::-webkit-scrollbar { 
+	display: none;
+}
+
 .scrollButtons {
-	visibility: hidden;
 	padding-left: var(--page-section-padding-left);
 	display: flex;
 	gap: 2em;
+}
+
+.scrollButtonsHidden {
+	visibility: hidden;
 }
 
 .scrollButton {
@@ -38,22 +43,32 @@
 	background-color: var(--container-bg-color);
 }
 
-.cards::-webkit-scrollbar { 
-	display: none;
+.scrollButtonImg {
+	-webkit-user-drag: none;
+	user-select: none;
+	-moz-user-select: none;
+	-moz-user-drag: none;
 }
 
-/* Limited height or width, including mobile */
+/* Limited height or width, including mobile
 @media (max-height: 850px) or (max-width: 1125px) {
   .cards {
 		flex-direction: column;
-		max-height: 32em; /* limit to 1 card height */
+		max-height: 32em;
   }
 
 	.scrollButtons {
 		visibility: visible;
 	}
-}
+}*/
 
+/* Mobile */
+@media (max-width: 700px) {
+	.cards, .scrollButtons {
+		padding-left: var(--page-section-padding);
+		scroll-padding-left: var(--page-section-padding);
+	}
+}
 
 /* Non-touch devices */
 @media (hover: hover) and (pointer: fine) {
@@ -69,5 +84,6 @@
 
 	.scrollButton:active {
 		transform: scale(0.95);
+		border: solid 2px var(--border-color); /* ensure border when still active but no longer hovering */
 	}
 }

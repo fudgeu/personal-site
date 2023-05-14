@@ -1,0 +1,31 @@
+.imageGalleryContainer {
+	display: flex;
+	flex-direction: column;
+}
+
+.imageGallery {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: var(--page-section-padding-left);
+	align-content: flex-start;
+	-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.imageGallery::-webkit-scrollbar { 
+	display: none;
+}
+
+.galImage {
+	border-radius: var(--border-radius);
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+	.galImage {
+		min-width: 100%;
+	}
+}

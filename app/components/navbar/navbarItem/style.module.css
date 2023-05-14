@@ -2,6 +2,8 @@
 	display: flex;
 	-webkit-user-drag: none;
 	user-select: none;
+	-moz-user-select: none;
+	-moz-user-drag: none;
 	transform: scale(0.85);
 	opacity: 0.35;
 	transition: transform 0.1s, opacity 0.1s;
@@ -15,7 +17,6 @@
 
 .navItemContainer:active {
 	background-color: var(--container-bg-color);
-	transform: scale(0.95);
 }
 
 .selectedNavItem {
@@ -31,7 +32,12 @@
 	}
 
 	.navItemContainer:hover {
-		border: solid 2px var(--container-bg-color);
+		border: solid 2px var(--border-color);
 		background-color: var(--container-bg-color);
+	}
+
+	.navItemContainer:active {
+		transform: scale(0.95);
+		border: solid 2px var(--border-color);
 	}
 }

@@ -86,8 +86,14 @@
 
 /* Mobile */
 @media (max-width: 700px) {
+	.pageSection {
+    padding: var(--page-section-padding) var(--page-section-padding);
+		padding-bottom: var(--page-section-padding-left);
+	}
+
   .splitPageSection {
     padding: var(--page-section-padding) 0;
+		padding-bottom: var(--page-section-padding-left);
   }
 
   .splitSection {

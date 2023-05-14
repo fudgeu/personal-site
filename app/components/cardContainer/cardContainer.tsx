@@ -2,7 +2,9 @@
 
 import Image from 'next/image';
 import styles from './style.module.css'
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import clsx from 'clsx';
+import { useIsOverflow } from '@/app/hooks/useIsOverflow';
 
 type CardContainerProps = {
   children: React.ReactNode
@@ -11,11 +13,13 @@ type CardContainerProps = {
 const arrowSize = 35;
 
 export default function CardContainer({ children }: CardContainerProps) {
-	const ref = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
-	//const { events } = useDraggable(ref);
+	const cardsRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+
+	const [isOverflowing, setOverflowing] = useState(false);
+	useIsOverflow(cardsRef, setOverflowing);
 	
 	const scroll = (amt: number) => {
-		ref.current.scrollBy({
+		cardsRef.current.scrollBy({
 			top: 0,
 			left: amt,
 			behavior: "smooth"
@@ -24,17 +28,24 @@ export default function CardContainer({ children }: CardContainerProps) {
 
   return (
     <div className={styles.cardContainer}>
-			<div className={styles.cards} ref={ref}>
+			<div className={styles.cards} ref={cardsRef}>
 				{children}
 			</div>
-			<div className={styles.scrollButtons}>
+
+			<div className={
+				clsx({
+					[styles.scrollButtons]: isOverflowing,
+					[styles.scrollButtonsHidden]: !isOverflowing
+				})}
+			>
 				<button className={styles.scrollButton} onClick={() => scroll(-50)}>
-					<Image src="/arrow_back.svg" width={arrowSize} height={arrowSize} alt="Scroll back" />
+					<Image className={styles.scrollButtonImg} src="/arrow_back.svg" width={arrowSize} height={arrowSize} alt="Scroll back" />
 				</button>
 				<button className={styles.scrollButton} onClick={() => scroll(50)}>
-					<Image src="/arrow_forward.svg" width={arrowSize} height={arrowSize} alt="Scroll forward" />
+					<Image className={styles.scrollButtonImg} src="/arrow_forward.svg" width={arrowSize} height={arrowSize} alt="Scroll forward" />
 				</button>
 			</div>
+
     </div>
   )
 }
