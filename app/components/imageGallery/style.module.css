@@ -24,8 +24,8 @@
 }
 
 /* Mobile */
-@media (max-width: 700px) {
+@media (max-width: 700px) or (max-height: 767px) {
 	.galImage {
-		min-width: 100%;
+		display: none;
 	}
 }

@@ -9,6 +9,9 @@ import ProjectCard from './components/projectCard/projectCard'
 import ImageGallery from './components/imageGallery/imageGallery'
 import Image from 'next/image';
 import GalImage from './components/imageGallery/galImage'
+import LinkButton from './components/LinkButton/LinkButton'
+import ProjectModal from './components/ProjectModal/ProjectModal'
+import { useState } from 'react'
 
 
 const inViewOptions = {
@@ -19,6 +22,7 @@ const inViewOptions = {
 
 export default function Home() {
 
+	const [showModal, setShowModal] = useState(false)
 	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
 	const { ref: aboutRef, inView: aboutInView } = useInView(inViewOptions)
 	const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions)
@@ -90,28 +94,31 @@ export default function Home() {
 							<h3><b>Playlist</b></h3>
 							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<p>written using the Fabric toolchain</p>
+							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>
 
 						<ProjectCard>
 							<h3><b>Refont</b></h3>
 							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<p>written using the Fabric toolchain</p>
+							<div className={styles.projectCardButtons}>
+								<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
+								<LinkButton label="" img="/expand.svg" onClick={() => {setShowModal(!showModal)}} />
+							</div>
 						</ProjectCard>
 					
 						<ProjectCard>
 							<h3><b>Classabull</b></h3>
 							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<p>written using the Fabric toolchain</p>
+							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>
 
 						<ProjectCard>
 							<h3><b>this website!</b></h3>
 							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<p>written using the Fabric toolchain</p>
+							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>
 
           </CardContainer>
@@ -132,6 +139,8 @@ export default function Home() {
 				projectsInView={projectsInView}
 				contactInView={contactInView}
 			/>
+
+			{showModal && (<ProjectModal onClose={() => setShowModal(false)} />)}
 
     </main>
   )

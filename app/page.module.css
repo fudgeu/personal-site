@@ -66,6 +66,11 @@
   justify-content: center;
 }
 
+.projectCardButtons {
+	display: flex;
+	gap: 1em;
+}
+
 /* contact section */
 
 .contactContent {

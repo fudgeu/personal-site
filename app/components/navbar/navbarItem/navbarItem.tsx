@@ -1,7 +1,6 @@
 import styles from './style.module.css'
 import clsx from "clsx";
 import Image from 'next/image'
-import Link from 'next/link';
 
 type NavBarItemProps = {
 	id: string,
