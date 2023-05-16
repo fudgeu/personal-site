@@ -1,14 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import styles from './page.module.css'
-import CardContainer from './components/cardContainer/cardContainer'
-import AboutCard from './components/aboutCard/aboutCard'
+import CardContainer from './components/CardContainer/cardContainer'
+import AboutCard from './components/AboutCard/aboutCard'
 import NavBar from './components/navbar/navbar'
 import { useInView } from 'react-intersection-observer'
-import ProjectCard from './components/projectCard/projectCard'
-import ImageGallery from './components/imageGallery/imageGallery'
+import ProjectCard from './components/ProjectCard/projectCard'
+import ImageGallery from './components/ImageGallery/imageGallery'
 import Image from 'next/image';
-import GalImage from './components/imageGallery/galImage'
+import GalImage from './components/ImageGallery/galImage'
 import LinkButton from './components/LinkButton/LinkButton'
 import ProjectModal from './components/ProjectModal/ProjectModal'
 import { useState } from 'react'
@@ -92,14 +93,14 @@ export default function Home() {
 
 						<ProjectCard>
 							<h3><b>Playlist</b></h3>
-							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>
 
 						<ProjectCard>
 							<h3><b>Refont</b></h3>
-							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<div className={styles.projectCardButtons}>
 								<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
@@ -109,14 +110,14 @@ export default function Home() {
 					
 						<ProjectCard>
 							<h3><b>Classabull</b></h3>
-							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>
 
 						<ProjectCard>
 							<h3><b>this website!</b></h3>
-							<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
 						</ProjectCard>

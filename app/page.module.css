@@ -71,6 +71,10 @@
 	gap: 1em;
 }
 
+.prjCardImg {
+	border-radius: var(--border-radius);
+}
+
 /* contact section */
 
 .contactContent {
@@ -104,6 +108,10 @@
   .splitSection {
     padding: 0 var(--page-section-padding);
   }
+
+	.prjCardImg {
+		display: none;
+	}
 }
 
 /* Tablet and Smaller Desktop */

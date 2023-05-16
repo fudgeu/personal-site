@@ -3,7 +3,7 @@
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: #00000088;
+	background-color: #00000055;
 	backdrop-filter: blur(0.5em);
 	display: flex;
 	align-items: center;
@@ -12,10 +12,27 @@
 
 .projectModal {
 	display: flex;
+	flex-direction: column;
 	width: 50em;
-	height: 30em;
+	max-width: 100%;
 	border: solid 2px var(--border-color);
 	border-radius: var(--border-radius);
-	background-color: #ffffff11;
+	background-color: #00000066;
 	padding: 2em;
+	gap: 1.5em;
+	align-items: start;
+}
+
+.prjMdlTopBar {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.prjMdlButtons {
+	display: flex;
+	width: 100%;
+	gap: 1em;
+	overflow-x: scroll;
 }

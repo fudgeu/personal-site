@@ -11,4 +11,3 @@ export default function ProjectCard({ children }: ProjectCardProps) {
 		</div>
 	)
 }
-// SWITCH TO A CAROUSEL Whatever its called BEFORE CONTINUING

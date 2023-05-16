@@ -1,6 +1,7 @@
 .imageGalleryContainer {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 }
 
 .imageGallery {
@@ -9,7 +10,6 @@
   gap: 2em;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
-  scroll-padding-left: var(--page-section-padding-left);
 	align-content: flex-start;
 	-ms-overflow-style: none;
   scrollbar-width: none;
@@ -21,11 +21,13 @@
 
 .galImage {
 	border-radius: var(--border-radius);
+	width: 25em;
+	max-width: 100%;
 }
 
 /* Mobile */
 @media (max-width: 700px) or (max-height: 767px) {
 	.galImage {
-		display: none;
+		
 	}
 }
