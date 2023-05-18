@@ -1,8 +1,12 @@
 import clsx from 'clsx'
 import styles from './style.module.css'
 import NavBarItem from './navbarItem/navbarItem'
+import useTransition from 'react-transition-state'
+import { useEffect } from 'react'
+import transitionStyle from '@/app/util/TransitionStyleMap'
 
 type NavBarProps = {
+	show: boolean,
 	homeInView: boolean,
 	aboutInView: boolean,
 	projectsInView: boolean,
@@ -11,7 +15,15 @@ type NavBarProps = {
 
 const iconSize = 35
 
-export default function NavBar({ homeInView, aboutInView, projectsInView, contactInView }: NavBarProps) {
+export default function NavBar({ show, homeInView, aboutInView, projectsInView, contactInView }: NavBarProps) {
+
+	const [{status}, trigger] = useTransition({
+		timeout: 200,
+		preEnter: true,
+		mountOnEnter: true,
+	})
+
+	useEffect(() => trigger(show), [show])
 
 	const isActiveSection = (id: string): boolean => {
 		switch (id) {
@@ -29,7 +41,7 @@ export default function NavBar({ homeInView, aboutInView, projectsInView, contac
 	}
 
 	return (
-		<div className={styles.navBarContainer}>
+		<div className={transitionStyle(styles, 'navBarContainer', status)}>
       <div className={styles.navBar}>
 				<NavBarItem id="home" altName="Home" isActive={isActiveSection} />
 				<NavBarItem id="about" altName="About" isActive={isActiveSection} />

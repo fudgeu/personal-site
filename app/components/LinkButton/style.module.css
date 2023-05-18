@@ -16,6 +16,10 @@
 	-moz-user-drag: none;
 }
 
+.linkButton:active {
+	background-color: var(--container-bg-color);
+}
+
 /* Non-touch devices */
 @media (hover: hover) and (pointer: fine) {
 	.linkButton:hover {

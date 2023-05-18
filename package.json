@@ -21,7 +21,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.4.3",
+    "react-transition-state": "^2.1.0",
     "react-use-draggable-scroll": "^0.4.7",
     "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/react-transition-group": "^4.4.6"
   }
 }

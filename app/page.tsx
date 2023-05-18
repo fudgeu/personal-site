@@ -7,12 +7,12 @@ import AboutCard from './components/AboutCard/aboutCard'
 import NavBar from './components/navbar/navbar'
 import { useInView } from 'react-intersection-observer'
 import ProjectCard from './components/ProjectCard/projectCard'
-import ImageGallery from './components/ImageGallery/imageGallery'
-import Image from 'next/image';
-import GalImage from './components/ImageGallery/galImage'
 import LinkButton from './components/LinkButton/LinkButton'
 import ProjectModal from './components/ProjectModal/ProjectModal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import useTransition from 'react-transition-state'
+import transitionStyle from './util/TransitionStyleMap'
+
 
 
 const inViewOptions = {
@@ -24,10 +24,32 @@ const inViewOptions = {
 export default function Home() {
 
 	const [showModal, setShowModal] = useState(false)
+	const [showNavBar, setShowNavBar] = useState(true)
 	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
 	const { ref: aboutRef, inView: aboutInView } = useInView(inViewOptions)
 	const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions)
 	const { ref: contactRef, inView: contactInView } = useInView(inViewOptions)
+
+	const [{status}, toggle] = useTransition({
+		timeout: 200,
+		preEnter: true,
+	})
+
+	useEffect(() => toggle(true), [toggle])
+
+	const toggleModal = (newState: boolean) => {
+		if (newState) {
+			toggle(false)
+			setShowNavBar(false)
+			setTimeout(() => setShowModal(true), 1)
+		} else {
+			setShowModal(false)
+			setTimeout(() => {
+				toggle(true)
+				setShowNavBar(true)
+			}, 1)
+		}
+	}
 
   return (
     <main className={styles.main}>
@@ -82,8 +104,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="projects" className={styles.splitPageSection} ref={projectsRef}>
-        <div className={styles.projectsContent}>
+			<div id="projects" className={styles.splitPageSection} ref={projectsRef}>
+        <div className={transitionStyle(styles, 'projectsContent', status)}>
 
 					<div className={styles.splitSection}>
 						<h2>projects</h2>
@@ -104,7 +126,7 @@ export default function Home() {
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<div className={styles.projectCardButtons}>
 								<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
-								<LinkButton label="" img="/expand.svg" onClick={() => {setShowModal(!showModal)}} />
+								<LinkButton label="" img="/expand.svg" onClick={() => {toggleModal(true)}} />
 							</div>
 						</ProjectCard>
 					
@@ -134,14 +156,15 @@ export default function Home() {
         </div>
       </div>
 
-			<NavBar 
+			<NavBar
+				show={showNavBar}
 				homeInView={homeInView}
 				aboutInView={aboutInView}
 				projectsInView={projectsInView}
 				contactInView={contactInView}
 			/>
 
-			{showModal && (<ProjectModal onClose={() => setShowModal(false)} />)}
+			<ProjectModal isOpen={showModal} onClose={() => toggleModal(false)} />
 
     </main>
   )

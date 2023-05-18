@@ -6,7 +6,6 @@
   scroll-snap-type: y mandatory;
   background: linear-gradient(52deg, #0d0017, #000000, #000917);
 	scroll-behavior: smooth;
-
 }
 
 .pageSection {
@@ -22,6 +21,7 @@
 	padding: var(--page-section-padding) 0;
   min-height: 100%;
   scroll-snap-align: start;
+	transition: transform 0.2s, opacity 0.2s;
 }
 
 .splitSection {
@@ -64,7 +64,20 @@
   flex-direction: column;
   min-height: 100%;
   justify-content: center;
+	transition: transform 0.2s, opacity 0.2s, filter 0.2s;
 }
+
+.projectsContent-entering, .projectsContent-entered {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.projectsContent-exiting, .projectsContent-exited, .projectsContent-preEnter {
+	opacity: 0.25;
+	transform: scale(0.7);
+	filter: blur(1em);
+}
+
 
 .projectCardButtons {
 	display: flex;

@@ -1,13 +1,18 @@
-.projectModalContainer {
-	position: absolute;
+.container {
+	position: fixed;
 	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: #00000055;
-	backdrop-filter: blur(0.5em);
+	top: 0;
+	width: 100%;
+	height: 100%;
+	/*background-color: #00000055;
+	backdrop-filter: blur(0.5em);*/
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+.container-exited {
+	visibility: hidden;
 }
 
 .projectModal {
@@ -18,21 +23,74 @@
 	border: solid 2px var(--border-color);
 	border-radius: var(--border-radius);
 	background-color: #00000066;
-	padding: 2em;
 	gap: 1.5em;
+	padding: 2em 0;
 	align-items: start;
+	transition: transform 0.2s, opacity 0.2s;
 }
 
-.prjMdlTopBar {
+.projectModal-preEnter {
+	transform: scale(1.2);
+	opacity: 0;
+}
+
+.projectModal-entering {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.projectModal-entered {
+	transform: scale(1);
+	opacity: 1;
+}
+
+.projectModal-exiting {
+	transform: scale(1.2);
+	opacity: 0;
+}
+
+.projectModal-exited {
+	transform: scale(1.2);
+	opacity: 0;
+}
+
+.topBar {
 	display: flex;
 	width: 100%;
 	align-items: center;
 	justify-content: space-between;
+	padding: 0 2em;
 }
 
-.prjMdlButtons {
+.images {
+	padding: 0 2em;
+}
+
+.description {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	padding: 0 2em;
+}
+
+.buttons {
 	display: flex;
 	width: 100%;
 	gap: 1em;
+	padding: 0 2em;
 	overflow-x: scroll;
+	-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.buttons::-webkit-scrollbar { 
+	display: none;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+	.projectModal {
+		border: none;
+		background-color: transparent;
+	}
 }
