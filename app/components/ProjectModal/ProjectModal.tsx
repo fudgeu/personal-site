@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useEffect, useRef } from 'react';
@@ -28,7 +29,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 			<div className={transitionStyle(styles, 'projectModal', status)}>
 
 				<div className={styles.topBar}>
-					<h2>Playlist</h2>
+					<img className={styles.logo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
 					<LinkButton label="" img="/close.svg" onClick={onClose} />
 				</div>
 				

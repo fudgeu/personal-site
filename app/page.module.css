@@ -73,11 +73,15 @@
 }
 
 .projectsContent-exiting, .projectsContent-exited, .projectsContent-preEnter {
-	opacity: 0.25;
+	opacity: 0;
 	transform: scale(0.7);
-	filter: blur(1em);
+	filter: blur(0.25em);
 }
 
+.prjCardLogo {
+	align-self: flex-start;
+	height: 3em;
+}
 
 .projectCardButtons {
 	display: flex;
@@ -94,7 +98,10 @@
   display: flex;
   flex-direction: column;
   min-height: 100%;
+	max-width: 50em;
   justify-content: center;
+	gap: 1em;
+	text-align: justify;
 }
 
 /* Enable hover only on non-touch devices */
@@ -122,6 +129,12 @@
     padding: 0 var(--page-section-padding);
   }
 
+	.prjCardImg {
+		display: none;
+	}
+}
+
+@media (max-height: 800px) {
 	.prjCardImg {
 		display: none;
 	}

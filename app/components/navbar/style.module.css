@@ -44,7 +44,6 @@
 	.navBarContainer-exiting, .navBarContainer-exited, .navBarContainer-preEnter {
 		transform: translateY(100%);
 		transition: transform 0.2s ease-in;
-
 	}
 
 	.navBarContainer-exited {

@@ -5,7 +5,7 @@
   padding: 1.5em;
   border: solid 2px var(--border-color);
   border-radius: var(--border-radius);
-  min-width: 30em;
+  min-width: 25em;
   scroll-snap-align: start;
   transition: background-color 0.1s, backdrop-filter 0.1s;
 }

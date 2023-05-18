@@ -12,6 +12,7 @@ import ProjectModal from './components/ProjectModal/ProjectModal'
 import { useEffect, useState } from 'react'
 import useTransition from 'react-transition-state'
 import transitionStyle from './util/TransitionStyleMap'
+import LabelWithImg from './components/LabelWithImg/LabelWithImg'
 
 
 
@@ -121,12 +122,11 @@ export default function Home() {
 						</ProjectCard>
 
 						<ProjectCard>
-							<h3><b>Refont</b></h3>
+							<img className={styles.prjCardLogo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
 							<div className={styles.projectCardButtons}>
-								<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
-								<LinkButton label="" img="/expand.svg" onClick={() => {toggleModal(true)}} />
+								<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true)}} />
 							</div>
 						</ProjectCard>
 					
@@ -152,8 +152,10 @@ export default function Home() {
       <div id="contact" className={styles.pageSection} ref={contactRef}>
         <div className={styles.contactContent}>
           <h2>contact</h2>
-          <p>do not</p>
-        </div>
+          <p>you can reach out to me regarding just about anything - from requests to just wanting to talk! do keep in mind that i&apos;ll likely respond quicker via discord however :&#41;</p>
+					<LabelWithImg img="/email.svg" imgAlt="Email icon">patrickkoss@outlook.com</LabelWithImg>
+					<LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">Fudgeu#6969</LabelWithImg>
+				</div>
       </div>
 
 			<NavBar

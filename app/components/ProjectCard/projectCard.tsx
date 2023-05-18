@@ -1,7 +1,7 @@
 import styles from './style.module.css'
 
 type ProjectCardProps = {
-  children: React.ReactNode
+  children: React.ReactNode,
 }
 
 export default function ProjectCard({ children }: ProjectCardProps) {

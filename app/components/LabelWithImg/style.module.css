@@ -1,0 +1,9 @@
+.container {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+}
+
+.labelImg {
+	width: 2em;
+}

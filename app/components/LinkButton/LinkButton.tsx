@@ -12,7 +12,7 @@ type LinkButtonProps = {
 export default function LinkButton({ label, img, onClick }: LinkButtonProps) {
 	return (
 		<button className={styles.linkButton} onClick={onClick}>
-			<Image className={styles.linkButtonImg} src={img} width={25} height={25} alt={label} />
+			{img != "" && (<Image className={styles.linkButtonImg} src={img} width={25} height={25} alt={label} />)}
 			{label != "" && (<p>{label}</p>)}
 		</button>
 	)
