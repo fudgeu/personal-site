@@ -15,7 +15,6 @@ import transitionStyle from './util/TransitionStyleMap'
 import LabelWithImg from './components/LabelWithImg/LabelWithImg'
 
 
-
 const inViewOptions = {
 	root: null,
 	rootMargin: "0px",
@@ -67,6 +66,7 @@ export default function Home() {
           </div>
 
         </div>
+
       </div>
 
       <div id="about" className={styles.splitPageSection} ref={aboutRef}>
