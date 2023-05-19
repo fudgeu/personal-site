@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import useTransition from 'react-transition-state'
 import transitionStyle from './util/TransitionStyleMap'
 import LabelWithImg from './components/LabelWithImg/LabelWithImg'
+import GLView from './components/GLView/GLView'
 
 
 const inViewOptions = {
@@ -66,6 +67,8 @@ export default function Home() {
           </div>
 
         </div>
+				
+				<GLView />
 
       </div>
 
