@@ -13,6 +13,7 @@
   padding-left: var(--page-section-padding-left);
   min-height: 100%;
   scroll-snap-align: start;
+	z-index: 20;
 }
 
 .splitPageSection {
@@ -22,6 +23,7 @@
   min-height: 100%;
   scroll-snap-align: start;
 	transition: transform 0.2s, opacity 0.2s;
+	z-index: 20;
 }
 
 .splitSection {

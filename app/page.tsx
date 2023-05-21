@@ -54,6 +54,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+			<GLView />
 
       <div id="home" className={styles.pageSection} ref={homeRef}>
         <div className={styles.homeContent}>
@@ -67,8 +68,6 @@ export default function Home() {
           </div>
 
         </div>
-				
-				<GLView />
 
       </div>
 

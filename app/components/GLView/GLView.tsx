@@ -80,7 +80,17 @@ let squareRotation = 0
 let deltaTime = 0
 let then = 0
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
 export default function GLView() {
+
+	const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   const ref = useRef<HTMLCanvasElement>(null)
 	const animationRequestRef = useRef<number>()
@@ -137,11 +147,19 @@ export default function GLView() {
 		}
   }, [render])
 
+	useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className={styles.container}>
-      <canvas width="500" height="500" ref={ref}>
-
-      </canvas>
+      <canvas width={windowDimensions.width} height={windowDimensions.height} ref={ref} />
+			<span className={styles.gradientOverlay} />
     </div>
   )
 }

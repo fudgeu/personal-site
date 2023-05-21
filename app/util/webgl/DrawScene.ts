@@ -3,6 +3,7 @@ import { BufferContainer } from "./Buffers";
 import { ProgramInfo } from "@/app/components/GLView/GLView";
 
 export default function drawScene(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: BufferContainer, cubeRotation: number) {
+	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
   gl.clearColor(0, 0, 0, 1);
   gl.clearDepth(1.0);
   gl.enable(gl.DEPTH_TEST); // enable depth testing

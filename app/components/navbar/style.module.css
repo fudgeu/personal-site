@@ -4,6 +4,7 @@
   padding: var(--page-section-padding);
 	overflow-y: hidden;
 	transition: transform 0.2s;
+	z-index: 20;
 }
 
 .navBarContainer-entering, .navBarContainer-entered {
