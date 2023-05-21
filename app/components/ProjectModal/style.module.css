@@ -9,6 +9,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	z-index: 40;
 }
 
 .container-exited {
@@ -23,6 +24,7 @@
 	border: solid 2px var(--border-color);
 	border-radius: var(--border-radius);
 	background-color: transparent;
+	backdrop-filter: blur(1em);
 	gap: 1.5em;
 	padding: 2em 0;
 	align-items: start;

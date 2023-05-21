@@ -9,6 +9,7 @@
   max-width: 32em;
   height: 18em;
   scroll-snap-align: start;
+	backdrop-filter: blur(1em);
   transition: background-color 0.1s, backdrop-filter 0.1s;
 }
 
@@ -16,7 +17,6 @@
 @media (hover: hover) and (pointer: fine) {
 	.aboutCard:hover {
 		background-color: #ffffff07;
-  	backdrop-filter: blur(0.4em);
 	}
 }
 
@@ -24,6 +24,5 @@
 @media (max-width: 700px) {
 	.aboutCardActive {
 		background-color: #ffffff07;
-		backdrop-filter: blur(0.4em);
 	}
 }

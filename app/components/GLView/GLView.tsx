@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './style.module.css'
@@ -80,21 +80,14 @@ let squareRotation = 0
 let deltaTime = 0
 let then = 0
 
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
 export default function GLView() {
-
-	const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+		
+	const [windowDimensions, setWindowDimensions] = useState({width: 0, height: 0});
 
   const ref = useRef<HTMLCanvasElement>(null)
 	const animationRequestRef = useRef<number>()
 
+	// Render WebGL
 	const render = useCallback((time: number, gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: BufferContainer) => {
 		time *= 0.001
 		deltaTime = time - then
@@ -104,6 +97,7 @@ export default function GLView() {
 		animationRequestRef.current = requestAnimationFrame((newTime) => render(newTime, gl, programInfo, buffers))
 	}, [])
 
+	// Init WebGL
   useEffect(() => {
     const gl = ref.current?.getContext("webgl")
     if (gl == null) return;
@@ -147,14 +141,16 @@ export default function GLView() {
 		}
   }, [render])
 
+	// Handle Resize
 	useEffect(() => {
     function handleResize() {
-      setWindowDimensions(getWindowDimensions());
+      setWindowDimensions({ width: window.innerWidth, height: window.innerHeight })
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+		handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   return (
     <div className={styles.container}>
