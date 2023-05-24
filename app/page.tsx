@@ -9,7 +9,7 @@ import { useInView } from 'react-intersection-observer'
 import ProjectCard from './components/ProjectCard/projectCard'
 import LinkButton from './components/LinkButton/LinkButton'
 import ProjectModal from './components/ProjectModal/ProjectModal'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useTransition from 'react-transition-state'
 import transitionStyle from './util/TransitionStyleMap'
 import LabelWithImg from './components/LabelWithImg/LabelWithImg'
@@ -26,6 +26,7 @@ export default function Home() {
 
 	const [showModal, setShowModal] = useState(false)
 	const [showNavBar, setShowNavBar] = useState(true)
+	const [scrollPosition, setScrollPosition] = useState(0)
 	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
 	const { ref: aboutRef, inView: aboutInView } = useInView(inViewOptions)
 	const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions)
@@ -37,6 +38,24 @@ export default function Home() {
 	})
 
 	useEffect(() => toggle(true), [toggle])
+
+	const mainRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>
+
+	// Handle scroll
+	const handleScroll = () => {
+		const position = mainRef.current.scrollTop;
+		setScrollPosition(position);
+	};
+
+	useEffect(() => {
+		mainRef.current.addEventListener('scroll', handleScroll, { passive: true });
+
+		const currentRef = mainRef.current;
+
+		return () => {
+				currentRef.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
 	const toggleModal = (newState: boolean) => {
 		if (newState) {
@@ -53,8 +72,8 @@ export default function Home() {
 	}
 
   return (
-    <main className={styles.main}>
-			<GLView />
+    <main className={styles.main} ref={mainRef}>
+			<GLView scrollPosition={scrollPosition} />
 
       <div id="home" className={styles.pageSection} ref={homeRef}>
         <div className={styles.homeContent}>

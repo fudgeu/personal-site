@@ -1,6 +1,8 @@
 import { mat4 } from "gl-matrix";
 import { BufferContainer } from "./Buffers";
 import { ProgramInfo } from "@/app/components/GLView/GLView";
+import { getWorldObjects } from "./World";
+import { Object3D } from "./Object3D";
 
 export default function drawScene(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: BufferContainer, cubeRotation: number) {
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
@@ -20,7 +22,7 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
   const projMatrix = mat4.create()
   mat4.perspective(projMatrix, fov, aspectRatio, zNear, zFar)
 
-  // create model view matrix
+  /* // create model view matrix
   const modelViewMatrix = mat4.create()
   mat4.translate( // translate model view matrix a bit away from center
     modelViewMatrix,
@@ -31,46 +33,48 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 	// rotate cube
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [1, 0, 0])
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 1, 0])
-	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1])
+	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]) */
 
-	// create normal matrix
-	const normalMatrix = mat4.create()
-	mat4.invert(normalMatrix, modelViewMatrix)
-	mat4.transpose(normalMatrix, normalMatrix)
+	getWorldObjects().forEach((object: Object3D, index: number) => {
+		// create normal matrix
+		const normalMatrix = mat4.create()
+		mat4.invert(normalMatrix, object.position)
+		mat4.transpose(normalMatrix, normalMatrix)
 
-	// provide webgl with our attributes and instructions how to read the arrays
-  setPositionAttribute(gl, buffers, programInfo)
-  setColorAttribute(gl, buffers, programInfo)
-	setNormalAttribute(gl, buffers, programInfo)
-  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
+		// provide webgl with our attributes and instructions how to read the arrays
+		setPositionAttribute(gl, object.buffers, programInfo)
+		setColorAttribute(gl, object.buffers, programInfo)
+		setNormalAttribute(gl, object.buffers, programInfo)
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, object.buffers.indices)
 
-  // give shader program for drawing
-  gl.useProgram(programInfo.program)
+		// give shader program for drawing
+		gl.useProgram(programInfo.program)
 
-  // give webgl our uniforms
-  gl.uniformMatrix4fv(
-    programInfo.uniformLocations.projectionMatrix,
-    false,
-    projMatrix
-  )
+		// give webgl our uniforms
+		gl.uniformMatrix4fv(
+			programInfo.uniformLocations.projectionMatrix,
+			false,
+			projMatrix
+		)
+	
+		gl.uniformMatrix4fv(
+			programInfo.uniformLocations.modelViewMatrix,
+			false,
+			object.position
+		)
+	
+		gl.uniformMatrix4fv(
+			programInfo.uniformLocations.normalMatrix,
+			false,
+			normalMatrix
+		)
 
-  gl.uniformMatrix4fv(
-    programInfo.uniformLocations.modelViewMatrix,
-    false,
-    modelViewMatrix
-  )
-
-	gl.uniformMatrix4fv(
-		programInfo.uniformLocations.normalMatrix,
-		false,
-		normalMatrix
-	)
-
-  // tell gl to draw with everything we have provided
-	const vertexCount = 36;
-	const type = gl.UNSIGNED_SHORT
-  const offset = 0
-  gl.drawElements(gl.TRIANGLES, vertexCount, type, offset)
+		// tell gl to draw with everything we have provided
+		const vertexCount = 36;
+		const type = gl.UNSIGNED_SHORT
+		const offset = 0
+		gl.drawElements(gl.TRIANGLES, vertexCount, type, offset)
+	})
 }
 
 function setPositionAttribute(gl: WebGLRenderingContext, buffers: BufferContainer, programInfo: ProgramInfo) {
