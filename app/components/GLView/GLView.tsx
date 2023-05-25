@@ -5,7 +5,7 @@ import styles from './style.module.css'
 import initShaderProgram from '@/app/util/webgl/Shaders';
 import initBuffers, { BufferContainer } from '@/app/util/webgl/Buffers';
 import drawScene from '@/app/util/webgl/DrawScene';
-import { addWorldObject, clearWorldObjects, getWorldObjects } from '@/app/util/webgl/World';
+import { WorldObject, addWorldObject, clearWorldObjects, getWorldObjects } from '@/app/util/webgl/World';
 import { Object3D, createObject } from '@/app/util/webgl/Object3D';
 import { mat4 } from 'gl-matrix';
 
@@ -19,6 +19,7 @@ const vertexSource = `
 	attribute vec3 aVertexNormal;
 
   uniform mat4 uModelViewMatrix;
+  uniform mat4 uWorldMatrix;
   uniform mat4 uProjectionMatrix;
 	uniform mat4 uNormalMatrix;
 
@@ -27,7 +28,7 @@ const vertexSource = `
 	varying highp vec3 vFragPos;
 
   void main(void) {
-    gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
+    gl_Position = uProjectionMatrix * uWorldMatrix * uModelViewMatrix * aVertexPosition;
 
     vColor = aVertexColor;
 		vNormal = mat3(uNormalMatrix) * aVertexNormal;
@@ -49,7 +50,7 @@ const fragmentSource = `
 		vec3 lightDiffuse = vec3(151.0/255.0, 0, 1);
 		float lightConstant = 1.0;
 		float lightLinear = 0.14;
-		float lightQuadratic = 0.07; 
+		float lightQuadratic = 0.04; 
 
 		vec3 ambient = lightAmbient * vColor.rgb;
 
@@ -79,6 +80,7 @@ export type ProgramInfo = {
     uniformLocations: {
       projectionMatrix: WebGLUniformLocation | null,
       modelViewMatrix: WebGLUniformLocation | null,
+      worldMatrix: WebGLUniformLocation | null,
 			normalMatrix: WebGLUniformLocation | null
     }
 }
@@ -130,6 +132,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
       uniformLocations: {
         projectionMatrix: gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),
         modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
+        worldMatrix: gl.getUniformLocation(shaderProgram, "uWorldMatrix"),
         normalMatrix: gl.getUniformLocation(shaderProgram, "uNormalMatrix"),
       },
     };
@@ -144,23 +147,39 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 		clearWorldObjects()
 
 		const cube1: Object3D = createObject(buffers)
-		mat4.translate(cube1.position, cube1.position, [-1.5, -0.5, -10])
-		mat4.rotate(cube1.position, cube1.position, Math.PI/2, [1, 1, 0])
-		mat4.scale(cube1.position, cube1.position, [0.75, 0.75, 0.75])
+    mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI/2, [1, 1, 0])
+		mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75])
+    const cube1Pos = mat4.create()
+		mat4.translate(cube1Pos, cube1Pos, [-1.5, -0.5, -10])
 
 		const cube2: Object3D = createObject(buffers)
-		mat4.translate(cube2.position, cube2.position, [1, -0.5, -6])
-		mat4.rotate(cube2.position, cube2.position, Math.PI/2, [0, 1, 1])
-		mat4.scale(cube2.position, cube2.position, [0.75, 0.75, 0.75])
+    mat4.rotate(cube2.localPosition, cube2.localPosition, Math.PI/2, [0, 1, 1])
+		mat4.scale(cube2.localPosition, cube2.localPosition, [0.75, 0.75, 0.75])
+    const cube2Pos = mat4.create()
+		mat4.translate(cube2Pos, cube2Pos, [1, -0.5, -6])
 
 		const cube3: Object3D = createObject(buffers)
-		mat4.translate(cube3.position, cube3.position, [0, 0.5, -8])
-		mat4.rotate(cube3.position, cube3.position, Math.PI/2, [1, 1, 1])
-		mat4.scale(cube3.position, cube3.position, [0.5, 0.5, 0.5])
+    mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI/2, [1, 1, 1])
+		mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5])
+    const cube3Pos = mat4.create()
+		mat4.translate(cube3Pos, cube3Pos, [0, 0.5, -8])
 
-		addWorldObject(cube1)
-		addWorldObject(cube2)
-		addWorldObject(cube3)
+    const cube4: Object3D = createObject(buffers)
+    mat4.rotate(cube4.localPosition, cube4.localPosition, Math.PI/2, [1, 1, 1])
+		mat4.scale(cube4.localPosition, cube4.localPosition, [0.5, 0.5, 0.5])
+    const cube4Pos = mat4.create()
+		mat4.translate(cube4Pos, cube4Pos, [1, -5, -8])
+
+    const cube5: Object3D = createObject(buffers)
+    mat4.rotate(cube5.localPosition, cube5.localPosition, Math.PI/2, [1, 1, 0])
+    const cube5Pos = mat4.create()
+		mat4.translate(cube5Pos, cube5Pos, [-1, -8, -15])
+
+		addWorldObject(cube1, cube1Pos)
+		addWorldObject(cube2, cube2Pos)
+		addWorldObject(cube3, cube3Pos)
+		addWorldObject(cube4, cube4Pos)
+		addWorldObject(cube5, cube5Pos)
 
 		animationRequestRef.current = requestAnimationFrame((time) => render(time, gl, programInfo, buffers))
 
@@ -173,11 +192,11 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 	// Handle scroll
 	useEffect(() => {
 		const offset = scrollPosition - lastScrollPos
-		getWorldObjects().forEach((object: Object3D) => {
-			mat4.translate(object.position, object.position, [0, 0.002*offset, 0])
+		getWorldObjects().forEach(({ object, position }: WorldObject) => {
+			mat4.translate(position, position, [0, 0.002*offset, 0])
+      mat4.rotate(object.localPosition, object.localPosition, 0.0003*offset, [1, 1, 0])
 		})
 		setLastScrollPos(scrollPosition)
-		console.log('runnning')
 	}, [lastScrollPos, scrollPosition])
 
 	// Handle Resize

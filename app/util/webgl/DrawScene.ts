@@ -1,8 +1,7 @@
 import { mat4 } from "gl-matrix";
 import { BufferContainer } from "./Buffers";
 import { ProgramInfo } from "@/app/components/GLView/GLView";
-import { getWorldObjects } from "./World";
-import { Object3D } from "./Object3D";
+import { WorldObject, getWorldObjects } from "./World";
 
 export default function drawScene(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: BufferContainer, cubeRotation: number) {
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
@@ -35,17 +34,21 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 1, 0])
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]) */
 
-	getWorldObjects().forEach((object: Object3D, index: number) => {
+	getWorldObjects().forEach((worldObject: WorldObject, index: number) => {
+    const buffers = worldObject.object.buffers
+    const localPosition = worldObject.object.localPosition
+    const worldPosition = worldObject.position
+
 		// create normal matrix
 		const normalMatrix = mat4.create()
-		mat4.invert(normalMatrix, object.position)
+		mat4.invert(normalMatrix, localPosition)
 		mat4.transpose(normalMatrix, normalMatrix)
 
 		// provide webgl with our attributes and instructions how to read the arrays
-		setPositionAttribute(gl, object.buffers, programInfo)
-		setColorAttribute(gl, object.buffers, programInfo)
-		setNormalAttribute(gl, object.buffers, programInfo)
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, object.buffers.indices)
+		setPositionAttribute(gl, buffers, programInfo)
+		setColorAttribute(gl, buffers, programInfo)
+		setNormalAttribute(gl, buffers, programInfo)
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
 
 		// give shader program for drawing
 		gl.useProgram(programInfo.program)
@@ -60,9 +63,15 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 		gl.uniformMatrix4fv(
 			programInfo.uniformLocations.modelViewMatrix,
 			false,
-			object.position
+			localPosition
 		)
 	
+    gl.uniformMatrix4fv(
+      programInfo.uniformLocations.worldMatrix,
+      false,
+      worldPosition
+    )
+
 		gl.uniformMatrix4fv(
 			programInfo.uniformLocations.normalMatrix,
 			false,
