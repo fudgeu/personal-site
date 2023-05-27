@@ -2,8 +2,9 @@ import { mat4 } from "gl-matrix";
 import { BufferContainer } from "./Buffers";
 import { ProgramInfo } from "@/app/components/GLView/GLView";
 import { WorldObject, getWorldObjects } from "./World";
+import { Mesh, MeshWithBuffers } from "webgl-obj-loader";
 
-export default function drawScene(gl: WebGLRenderingContext, programInfo: ProgramInfo, buffers: BufferContainer, cubeRotation: number) {
+export default function drawScene(gl: WebGLRenderingContext, programInfo: ProgramInfo) {
 	gl.viewport(0, 0, gl.canvas.width, gl.canvas.height)
   gl.clearColor(0, 0, 0, 1);
   gl.clearDepth(1.0);
@@ -35,7 +36,7 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 	mat4.rotate(modelViewMatrix, modelViewMatrix, cubeRotation, [0, 0, 1]) */
 
 	getWorldObjects().forEach((worldObject: WorldObject, index: number) => {
-    const buffers = worldObject.object.buffers
+    const buffers = worldObject.object.buffers as MeshWithBuffers
     const localPosition = worldObject.object.localPosition
     const worldPosition = worldObject.position
 
@@ -46,9 +47,8 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 
 		// provide webgl with our attributes and instructions how to read the arrays
 		setPositionAttribute(gl, buffers, programInfo)
-		setColorAttribute(gl, buffers, programInfo)
 		setNormalAttribute(gl, buffers, programInfo)
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indices)
+		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, buffers.indexBuffer)
 
 		// give shader program for drawing
 		gl.useProgram(programInfo.program)
@@ -79,21 +79,21 @@ export default function drawScene(gl: WebGLRenderingContext, programInfo: Progra
 		)
 
 		// tell gl to draw with everything we have provided
-		const vertexCount = 36;
+		const vertexCount = buffers.indexBuffer.numItems;
 		const type = gl.UNSIGNED_SHORT
 		const offset = 0
 		gl.drawElements(gl.TRIANGLES, vertexCount, type, offset)
 	})
 }
 
-function setPositionAttribute(gl: WebGLRenderingContext, buffers: BufferContainer, programInfo: ProgramInfo) {
-  const numComponents = 3 // 3 values per vertex
+function setPositionAttribute(gl: WebGLRenderingContext, mesh: MeshWithBuffers, programInfo: ProgramInfo) {
+  const numComponents = mesh.vertexBuffer.itemSize // 3 values per vertex
   const type = gl.FLOAT // the data in the buffer are 32 bit floats
   const normalize = false
   const stride = 0
   const offset = 0
 
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffers.positions) // give webgl our position buffer
+  gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexBuffer) // give webgl our position buffer
   gl.vertexAttribPointer( //tell webgl how to read through and where to supply the positions in our shader
     programInfo.attribLocations.vertexPosition,
     numComponents,
@@ -105,7 +105,7 @@ function setPositionAttribute(gl: WebGLRenderingContext, buffers: BufferContaine
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition)
 }
 
-function setColorAttribute(gl: WebGLRenderingContext, buffers: BufferContainer, programInfo: ProgramInfo) {
+/*function setColorAttribute(gl: WebGLRenderingContext, buffers: Mesh, programInfo: ProgramInfo) {
   const numComponents = 4;
   const type = gl.FLOAT;
   const normalize = false;
@@ -122,16 +122,16 @@ function setColorAttribute(gl: WebGLRenderingContext, buffers: BufferContainer, 
     offset
   );
   gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
-}
+}*/
 
-function setNormalAttribute(gl: WebGLRenderingContext, buffers: BufferContainer, programInfo: ProgramInfo) {
-	const numComponents = 3
+function setNormalAttribute(gl: WebGLRenderingContext, mesh: MeshWithBuffers, programInfo: ProgramInfo) {
+	const numComponents = mesh.normalBuffer.itemSize
 	const type = gl.FLOAT
 	const normalize = false
 	const stride = 0
 	const offset = 0
 
-	gl.bindBuffer(gl.ARRAY_BUFFER, buffers.normals)
+	gl.bindBuffer(gl.ARRAY_BUFFER, mesh.normalBuffer)
 	gl.vertexAttribPointer(
 		programInfo.attribLocations.vertexNormal,
 		numComponents,

@@ -24,7 +24,8 @@
     "react-intersection-observer": "^9.4.3",
     "react-transition-state": "^2.1.0",
     "react-use-draggable-scroll": "^0.4.7",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "webgl-obj-loader": "^2.0.8"
   },
   "devDependencies": {
     "@types/react-transition-group": "^4.4.6"
