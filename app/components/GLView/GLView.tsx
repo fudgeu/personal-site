@@ -119,8 +119,8 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 	}, [])
 
 	// Init WebGL
-	const loadSphere = useCallback(async (gl: WebGLRenderingContext): Promise<Mesh | null> => {
-		const response = await fetch('./sphere.obj')
+	const loadShape = useCallback(async (gl: WebGLRenderingContext, location: string): Promise<Mesh | null> => {
+		const response = await fetch(location)
 		if (!response.ok) return null
 
 		const rawObj = await response.text()
@@ -155,34 +155,42 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     };
 	}, [])
 
-	const loadWorld = useCallback((gl: WebGLRenderingContext, sphere: Mesh) => {
+	const loadWorld = useCallback((gl: WebGLRenderingContext, shapes: (Mesh | null)[]) => {
 		clearWorldObjects()
 
-		const cube1: Object3D = createObject(sphere)
+		let nullFound = false
+		shapes.find(val => {
+			nullFound = val == null
+			return nullFound
+		})
+		if (nullFound) return
+		const fShapes = shapes as Mesh[]
+
+		const cube1: Object3D = createObject(fShapes[0])
     mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI/2, [1, 1, 0])
 		mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75])
     const cube1Pos = mat4.create()
 		mat4.translate(cube1Pos, cube1Pos, [-1.5, -0.5, -10])
 
-		const cube2: Object3D = createObject(sphere)
+		const cube2: Object3D = createObject(fShapes[1])
     mat4.rotate(cube2.localPosition, cube2.localPosition, Math.PI/2, [0, 1, 1])
 		mat4.scale(cube2.localPosition, cube2.localPosition, [0.75, 0.75, 0.75])
     const cube2Pos = mat4.create()
 		mat4.translate(cube2Pos, cube2Pos, [1, -0.5, -6])
 
-		const cube3: Object3D = createObject(sphere)
+		const cube3: Object3D = createObject(fShapes[0])
     mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5])
     const cube3Pos = mat4.create()
 		mat4.translate(cube3Pos, cube3Pos, [0, 0.5, -8])
 
-    const cube4: Object3D = createObject(sphere)
+    const cube4: Object3D = createObject(fShapes[1])
     mat4.rotate(cube4.localPosition, cube4.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube4.localPosition, cube4.localPosition, [0.5, 0.5, 0.5])
     const cube4Pos = mat4.create()
 		mat4.translate(cube4Pos, cube4Pos, [1, -5, -8])
 
-    const cube5: Object3D = createObject(sphere)
+    const cube5: Object3D = createObject(fShapes[0])
     mat4.rotate(cube5.localPosition, cube5.localPosition, Math.PI/2, [1, 1, 0])
     const cube5Pos = mat4.create()
 		mat4.translate(cube5Pos, cube5Pos, [-1, -8, -15])
@@ -207,14 +215,18 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 			return
 		}
 
-		loadSphere(gl)
+		Promise.all([loadShape(gl, './sphere.obj'), loadShape(gl, './cube.obj')])
+			.then(shapes => {
+				loadWorld(gl, shapes)
+			})
+		/*loadShape(gl)
 			.then(sphere => {
 				if (sphere == null) {
 					console.error("Failed to initalize WebGL - model loading failed")
 					return
 				}
 				loadWorld(gl, sphere)
-			})
+			})*/
 
 		animationRequestRef.current = requestAnimationFrame((time) => render(time, gl, programInfo))
 
@@ -222,7 +234,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 			if (animationRequestRef.current == null) return
 			cancelAnimationFrame(animationRequestRef.current)
 		}
-  }, [loadShader, loadSphere, loadWorld, render])
+  }, [loadShader, loadShape, loadWorld, render])
 
 	// Handle scroll
 	useEffect(() => {
