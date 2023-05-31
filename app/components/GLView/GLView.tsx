@@ -7,78 +7,11 @@ import drawScene from '@/app/util/webgl/DrawScene';
 import { WorldObject, addWorldObject, clearWorldObjects, getWorldObjects } from '@/app/util/webgl/World';
 import { Object3D, createObject } from '@/app/util/webgl/Object3D';
 import { mat4 } from 'gl-matrix';
-import { Mesh, MeshWithBuffers, OBJ } from 'webgl-obj-loader';
+import { MeshWithBuffers, OBJ } from 'webgl-obj-loader';
 
 export type GLViewProps = {
 	scrollPosition: number
 }
-
-const vertexSource = `
-  attribute vec4 aVertexPosition;
-  attribute vec4 aVertexColor;
-	attribute vec3 aVertexNormal;
-
-  uniform mat4 uModelViewMatrix;
-  uniform mat4 uWorldMatrix;
-  uniform mat4 uProjectionMatrix;
-	uniform mat4 uNormalMatrix;
-
-  //varying lowp vec4 vColor;
-	varying highp vec3 vNormal;
-	varying highp vec3 vFragPos;
-
-  void main(void) {
-    gl_Position = uProjectionMatrix * uWorldMatrix * uModelViewMatrix * aVertexPosition;
-
-    //vColor = aVertexColor;
-		vNormal = mat3(uNormalMatrix) * aVertexNormal;
-		vFragPos = vec3(uModelViewMatrix * aVertexPosition);
-  }
-  `;
-
-const fragmentSource = `
-precision mediump float;
-
-struct PointLight {
-  vec3 position;
-  vec3 ambientColor;
-  vec3 diffuseColor;
-  float lightConstant;
-  float lightLinear;
-  float lightQuadratic;
-};
-
-//varying lowp vec4 vColor;
-varying highp vec3 vNormal;
-varying highp vec3 vFragPos;
-
-vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragmentPos) {
-  vec3 lightDirection = normalize(light.position - fragmentPos);
-  float difference = max(dot(normal, lightDirection), 0.0);
-
-  // attenuation //
-  float distance = length(light.position - fragmentPos);
-  float attenuation = 1.0 / (light.lightConstant + light.lightLinear * distance + light.lightQuadratic * (distance * distance));
-  /////////////////
-
-  vec3 diffuse = light.diffuseColor * difference * attenuation;
-  vec3 ambient = light.ambientColor * attenuation;
-
-  return ambient + diffuse;
-}
-
-void main(void) {
-  vec3 norm = normalize(vNormal);
-
-  PointLight purpleLight = PointLight(vec3(-5.0, -5.0, 5.0), vec3(0, 0, 0), vec3(0.59, 0, 1), 1.0, 0.3, 0.06);
-  PointLight blueLight = PointLight(vec3(5.0, 5.0, 5.0), vec3(0, 0, 0), vec3(0, 0.14, 0.37), 1.0, 0.3, 0.10);
-
-  vec3 lightCalc1 = calculatePointLight(purpleLight, norm, vFragPos);
-  vec3 lightCalc2 = calculatePointLight(blueLight, norm, vFragPos);
-
-  gl_FragColor = vec4(lightCalc1 + lightCalc2, 1.0);
-}
-`;
 
 type Models = {
 	[key: string]: MeshWithBuffers
@@ -103,7 +36,6 @@ export type ProgramInfo = {
     }
 }
 
-let squareRotation = 0
 let deltaTime = 0
 let then = 0
 
@@ -120,7 +52,6 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 		time *= 0.001
 		deltaTime = time - then
 		then = time
-		squareRotation += deltaTime
     drawScene(gl, programInfo)
 		animationRequestRef.current = requestAnimationFrame((newTime) => render(newTime, gl, programInfo))
 	}, [])
@@ -137,12 +68,24 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 		return { model, id };
 	}, [])
 
-	const loadShader = useCallback((gl: WebGLRenderingContext): ProgramInfo | null => {
-		const shaderProgram = initShaderProgram(gl, vertexSource, fragmentSource) // create shader program from source
+  const loadShader = useCallback(async (gl: WebGLRenderingContext, vertexSrc: string, fragmentSrc: string): Promise<ProgramInfo> => {
+    const [vertexResponse, fragmentResponse] = await Promise.all([
+      fetch(vertexSrc),
+      fetch(fragmentSrc)
+    ])
+
+    if (!vertexResponse.ok) throw new Error(`Vertex Shader HTTP Error: ${vertexResponse.status}`)
+    if (!fragmentResponse.ok) throw new Error(`Fragment Shader HTTP Error: ${fragmentResponse.status}`)
+
+    const [vertexText, fragmentText] = await Promise.all([
+      vertexResponse.text(),
+      fragmentResponse.text()
+    ])
+
+    const shaderProgram = initShaderProgram(gl, vertexText, fragmentText) // create shader program from source
 
     if (shaderProgram == null) {
-      console.error("GL initialization failed, shader program is empty")
-      return null
+      throw new Error("Shader program compilation failed")
     }
 
     // grab shader attribute and uniform locations
@@ -150,7 +93,6 @@ export default function GLView({ scrollPosition }: GLViewProps) {
       program: shaderProgram,
       attribLocations: {
         vertexPosition: gl.getAttribLocation(shaderProgram, "aVertexPosition"),
-        //vertexColor: gl.getAttribLocation(shaderProgram, "aVertexColor"),
 				vertexNormal: gl.getAttribLocation(shaderProgram, "aVertexNormal")
       },
       uniformLocations: {
@@ -158,9 +100,9 @@ export default function GLView({ scrollPosition }: GLViewProps) {
         modelViewMatrix: gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
         worldMatrix: gl.getUniformLocation(shaderProgram, "uWorldMatrix"),
         normalMatrix: gl.getUniformLocation(shaderProgram, "uNormalMatrix"),
-      },
-    };
-	}, [])
+      }
+    }
+  }, [])
 
 	const loadWorld = useCallback((gl: WebGLRenderingContext, models: Models) => {
 		clearWorldObjects()
@@ -208,19 +150,13 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 
 	// begin init
   useEffect(() => {
+    // load gl
     const gl = ref.current?.getContext("webgl")
     if (gl == null) return
     gl.clearColor(0, 0, 0, 1)
     gl.clear(gl.COLOR_BUFFER_BIT)
 
-		const programInfo = loadShader(gl)
-		if (programInfo == null) {
-			console.error("Failed to initalize WebGL - shader init failed")
-			return
-		}
-
-		const loadedModels: Models = {}
-
+    // load models, then world
 		Promise.all([
 			loadModel(gl, 'sphere', './sphere.obj'),
 			loadModel(gl, 'torus', './torus.obj'),
@@ -229,18 +165,26 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 		])
 			.then(models => {
 				// register each loaded model
+		    const loadedModels: Models = {}
 				models.forEach((model: ModelResult) => {
 					console.log(model.id)
 					loadedModels[model.id] = model.model
 				})
-				console.log(loadedModels)
 				loadWorld(gl, loadedModels)
 			})
 			.catch(err => {
 				console.error(`Failed to load 3D models: ${err}`)
 			})
 
-		animationRequestRef.current = requestAnimationFrame((time) => render(time, gl, programInfo))
+    // load shader, then begin render
+    loadShader(gl, './vertex.glsl', './fragment.glsl')
+      .then(programInfo => {
+        animationRequestRef.current = requestAnimationFrame((time) => render(time, gl, programInfo))
+      })
+      .catch(err => {
+        console.error(`Failed to initialize WebGL - shader init failed: ${err}`)
+        return;
+      })
 
 		return () => {
 			if (animationRequestRef.current == null) return
