@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './style.module.css'
 import initShaderProgram from '@/app/util/webgl/Shaders';
-import initBuffers, { BufferContainer } from '@/app/util/webgl/Buffers';
 import drawScene from '@/app/util/webgl/DrawScene';
 import { WorldObject, addWorldObject, clearWorldObjects, getWorldObjects } from '@/app/util/webgl/World';
 import { Object3D, createObject } from '@/app/util/webgl/Object3D';
@@ -81,11 +80,19 @@ void main(void) {
 }
 `;
 
+type Models = {
+	[key: string]: MeshWithBuffers
+}
+
+type ModelResult = {
+	model: MeshWithBuffers,
+	id: string
+}
+
 export type ProgramInfo = {
   program: WebGLProgram,
     attribLocations: {
       vertexPosition: number,
-      //vertexColor: number,
       vertexNormal: number,
     },
     uniformLocations: {
@@ -119,15 +126,15 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 	}, [])
 
 	// Init WebGL
-	const loadShape = useCallback(async (gl: WebGLRenderingContext, location: string): Promise<Mesh | null> => {
+	const loadModel = useCallback(async (gl: WebGLRenderingContext, id: string, location: string): Promise<ModelResult> => {
 		const response = await fetch(location)
-		if (!response.ok) return null
+		if (!response.ok) throw new Error(`HTTP Error ${response.status}`)
 
 		const rawObj = await response.text()
-		const sphere = new OBJ.Mesh(rawObj)
-		OBJ.initMeshBuffers(gl, sphere)
+		const rawModel = new OBJ.Mesh(rawObj)
+		const model = OBJ.initMeshBuffers(gl, rawModel)
 
-		return sphere;
+		return { model, id };
 	}, [])
 
 	const loadShader = useCallback((gl: WebGLRenderingContext): ProgramInfo | null => {
@@ -155,42 +162,39 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     };
 	}, [])
 
-	const loadWorld = useCallback((gl: WebGLRenderingContext, shapes: (Mesh | null)[]) => {
+	const loadWorld = useCallback((gl: WebGLRenderingContext, models: Models) => {
 		clearWorldObjects()
 
-		let nullFound = false
-		shapes.find(val => {
-			nullFound = val == null
-			return nullFound
-		})
-		if (nullFound) return
-		const fShapes = shapes as Mesh[]
+		const cube = models["cube"]
+		const sphere = models["sphere"]
+		const torus = models["torus"]
+		const iso = models["iso"]
 
-		const cube1: Object3D = createObject(fShapes[0])
+		const cube1: Object3D = createObject(cube)
     mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI/2, [1, 1, 0])
 		mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75])
     const cube1Pos = mat4.create()
 		mat4.translate(cube1Pos, cube1Pos, [-1.5, -0.5, -10])
 
-		const cube2: Object3D = createObject(fShapes[1])
+		const cube2: Object3D = createObject(sphere)
     mat4.rotate(cube2.localPosition, cube2.localPosition, Math.PI/2, [0, 1, 1])
 		mat4.scale(cube2.localPosition, cube2.localPosition, [0.75, 0.75, 0.75])
     const cube2Pos = mat4.create()
 		mat4.translate(cube2Pos, cube2Pos, [1, -0.5, -6])
 
-		const cube3: Object3D = createObject(fShapes[0])
+		const cube3: Object3D = createObject(iso)
     mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5])
     const cube3Pos = mat4.create()
 		mat4.translate(cube3Pos, cube3Pos, [0, 0.5, -8])
 
-    const cube4: Object3D = createObject(fShapes[1])
+    const cube4: Object3D = createObject(torus)
     mat4.rotate(cube4.localPosition, cube4.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube4.localPosition, cube4.localPosition, [0.5, 0.5, 0.5])
     const cube4Pos = mat4.create()
 		mat4.translate(cube4Pos, cube4Pos, [1, -5, -8])
 
-    const cube5: Object3D = createObject(fShapes[0])
+    const cube5: Object3D = createObject(sphere)
     mat4.rotate(cube5.localPosition, cube5.localPosition, Math.PI/2, [1, 1, 0])
     const cube5Pos = mat4.create()
 		mat4.translate(cube5Pos, cube5Pos, [-1, -8, -15])
@@ -205,7 +209,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 	// begin init
   useEffect(() => {
     const gl = ref.current?.getContext("webgl")
-    if (gl == null) return;
+    if (gl == null) return
     gl.clearColor(0, 0, 0, 1)
     gl.clear(gl.COLOR_BUFFER_BIT)
 
@@ -215,18 +219,26 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 			return
 		}
 
-		Promise.all([loadShape(gl, './sphere.obj'), loadShape(gl, './cube.obj')])
-			.then(shapes => {
-				loadWorld(gl, shapes)
+		const loadedModels: Models = {}
+
+		Promise.all([
+			loadModel(gl, 'sphere', './sphere.obj'),
+			loadModel(gl, 'torus', './torus.obj'),
+			loadModel(gl, 'cube', './cube.obj'),
+			loadModel(gl, 'iso', './iso.obj')
+		])
+			.then(models => {
+				// register each loaded model
+				models.forEach((model: ModelResult) => {
+					console.log(model.id)
+					loadedModels[model.id] = model.model
+				})
+				console.log(loadedModels)
+				loadWorld(gl, loadedModels)
 			})
-		/*loadShape(gl)
-			.then(sphere => {
-				if (sphere == null) {
-					console.error("Failed to initalize WebGL - model loading failed")
-					return
-				}
-				loadWorld(gl, sphere)
-			})*/
+			.catch(err => {
+				console.error(`Failed to load 3D models: ${err}`)
+			})
 
 		animationRequestRef.current = requestAnimationFrame((time) => render(time, gl, programInfo))
 
@@ -234,7 +246,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 			if (animationRequestRef.current == null) return
 			cancelAnimationFrame(animationRequestRef.current)
 		}
-  }, [loadShader, loadShape, loadWorld, render])
+  }, [loadShader, loadModel, loadWorld, render])
 
 	// Handle scroll
 	useEffect(() => {
