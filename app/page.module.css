@@ -77,7 +77,6 @@
 .projectsContent-exiting, .projectsContent-exited, .projectsContent-preEnter {
 	opacity: 0;
 	transform: scale(0.7);
-	filter: blur(0.25em);
 }
 
 .prjCardLogo {
