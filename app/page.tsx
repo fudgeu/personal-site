@@ -8,7 +8,7 @@ import NavBar from './components/navbar/navbar'
 import { useInView } from 'react-intersection-observer'
 import ProjectCard from './components/ProjectCard/projectCard'
 import LinkButton from './components/LinkButton/LinkButton'
-import ProjectModal from './components/ProjectModal/ProjectModal'
+import ProjectModal, { Sources } from './components/ProjectModal/ProjectModal'
 import { useEffect, useRef, useState } from 'react'
 import useTransition from 'react-transition-state'
 import transitionStyle from './util/TransitionStyleMap'
@@ -22,9 +22,15 @@ const inViewOptions = {
 	threshold: 0.51
 }
 
+enum Modals {
+	None,
+	Playlist,
+	Classabull
+}
+
 export default function Home() {
 
-	const [showModal, setShowModal] = useState(false)
+	const [currentModal, setCurrentModal] = useState(Modals.None)
 	const [showNavBar, setShowNavBar] = useState(true)
 	const [scrollPosition, setScrollPosition] = useState(0)
 	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
@@ -57,13 +63,13 @@ export default function Home() {
 		};
 	}, []);
 
-	const toggleModal = (newState: boolean) => {
+	const toggleModal = (newState: boolean, modal: Modals) => {
 		if (newState) {
 			toggle(false)
 			setShowNavBar(false)
-			setTimeout(() => setShowModal(true), 1)
+			setTimeout(() => setCurrentModal(modal), 1)
 		} else {
-			setShowModal(false)
+			setCurrentModal(modal)
 			setTimeout(() => {
 				toggle(true)
 				setShowNavBar(true)
@@ -139,16 +145,15 @@ export default function Home() {
 							<h3><b>Playlist</b></h3>
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.Classabull)}} />
+
 						</ProjectCard>
 
 						<ProjectCard>
 							<img className={styles.prjCardLogo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<div className={styles.projectCardButtons}>
-								<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true)}} />
-							</div>
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.Playlist)}} />
 						</ProjectCard>
 					
 						<ProjectCard>
@@ -187,7 +192,34 @@ export default function Home() {
 				contactInView={contactInView}
 			/>
 
-			<ProjectModal isOpen={showModal} onClose={() => toggleModal(false)} />
+			<ProjectModal
+				isOpen={currentModal == Modals.Playlist}
+				onClose={() => toggleModal(false, Modals.None)}
+				logo="https://i.imgur.com/AtCmxQF.png"
+				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
+				buttons={[
+					{source: Sources.modrinth, link: ""},
+					{source: Sources.curseforge, link: ""},
+					{source: Sources.github, link: ""}
+				]}
+			>
+				<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+				<p>written using:</p>
+				<p>- java</p>
+				<p>- fabric toolchain</p>
+			</ProjectModal>
+
+			<ProjectModal
+				isOpen={currentModal == Modals.Classabull}
+				onClose={() => toggleModal(false, Modals.None)}
+				logo="https://i.imgur.com/AtCmxQF.png"
+				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
+				buttons={[
+					{source: Sources.github, link: ""}
+				]}
+			>
+				<p>test</p>
+			</ProjectModal>
 
     </main>
   )

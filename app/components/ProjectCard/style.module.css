@@ -6,6 +6,7 @@
   border: solid 2px var(--border-color);
   border-radius: var(--border-radius);
   min-width: 25em;
+  max-width: 35em;
   scroll-snap-align: start;
 	backdrop-filter: blur(1em);
   transition: background-color 0.1s, backdrop-filter 0.1s;

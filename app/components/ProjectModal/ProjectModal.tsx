@@ -9,12 +9,32 @@ import styles from './style.module.css'
 import useTransition from 'react-transition-state';
 import transitionStyle from '@/app/util/TransitionStyleMap';
 
-type ProjectModalProps = {
-	isOpen: boolean;
-	onClose: () => void;
+type Source = {
+	img: string,
+	label: string,
 }
 
-export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
+export const Sources = {
+	github: {img: "https://docs.modrinth.com/img/logo.svg", label: "Github"},
+	modrinth: {img: "https://docs.modrinth.com/img/logo.svg", label: "Modrinth"},
+	curseforge: {img: "https://docs.modrinth.com/img/logo.svg", label: "Curseforge"}
+}
+
+type Button = {
+	source: Source
+	link: string
+}
+
+type ProjectModalProps = {
+	isOpen: boolean,
+	onClose: () => void,
+	logo: string,
+	images: string[],
+	buttons: Button[],
+	children: React.ReactNode
+}
+
+export default function ProjectModal({ isOpen, onClose, logo, images, buttons, children }: ProjectModalProps) {
 	const [{status, isMounted}, toggle] = useTransition({
 		timeout: 200,
 		preEnter: true,
@@ -29,27 +49,22 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
 			<div className={transitionStyle(styles, 'projectModal', status)}>
 
 				<div className={styles.topBar}>
-					<img className={styles.logo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
+					<img className={styles.logo} src={logo} alt="Playlist logo" />
 					<LinkButton label="" img="/close.svg" onClick={onClose} />
 				</div>
 				
 				<ImageGallery>
-					<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
-					<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
-					<GalImage src="https://i.imgur.com/7ZOgVEB.jpeg" />
+					{images.map(image => <GalImage key={image} src={image} />)}
 				</ImageGallery>
 
 				<div className={styles.description}>
-					<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-					<p>written using:</p>
-					<p>- java</p>
-					<p>- fabric toolchain</p>
+					{children}
 				</div>
 	
 				<div className={styles.buttons}>
-					<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
-					<LinkButton label="Curseforge" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
-					<LinkButton label="GitHub" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
+					{buttons.map(button => 
+						<LinkButton key={button.link} label={button.source.label} img={button.source.img} onClick={() => {}} />
+					)}
 				</div>
 
 			</div>
