@@ -104,15 +104,16 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     }
   }, [])
 
-	const loadWorld = useCallback((gl: WebGLRenderingContext, models: Models) => {
+	const loadWorld = useCallback((gl: WebGLRenderingContext, models: Map<string, MeshWithBuffers>) => {
 		clearWorldObjects()
 
-		const cube = models["cube"]
-		const sphere = models["sphere"]
-		const torus = models["torus"]
-		const iso = models["iso"]
+		const sphere = models.get("sphere")
+		if (sphere === undefined) {
+			console.log("Could not load world, sphere model not loaded")
+			return
+		}
 
-		const cube1: Object3D = createObject(cube)
+		const cube1: Object3D = createObject(sphere)
     mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI/2, [1, 1, 0])
 		mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75])
     const cube1Pos = mat4.create()
@@ -124,13 +125,13 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     const cube2Pos = mat4.create()
 		mat4.translate(cube2Pos, cube2Pos, [1, -0.5, -6])
 
-		const cube3: Object3D = createObject(iso)
+		const cube3: Object3D = createObject(sphere)
     mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5])
     const cube3Pos = mat4.create()
 		mat4.translate(cube3Pos, cube3Pos, [0, 0.5, -8])
 
-    const cube4: Object3D = createObject(torus)
+    /*const cube4: Object3D = createObject(torus)
     mat4.rotate(cube4.localPosition, cube4.localPosition, Math.PI/2, [1, 1, 1])
 		mat4.scale(cube4.localPosition, cube4.localPosition, [0.5, 0.5, 0.5])
     const cube4Pos = mat4.create()
@@ -139,13 +140,36 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     const cube5: Object3D = createObject(sphere)
     mat4.rotate(cube5.localPosition, cube5.localPosition, Math.PI/2, [1, 1, 0])
     const cube5Pos = mat4.create()
-		mat4.translate(cube5Pos, cube5Pos, [-1, -8, -15])
+		mat4.translate(cube5Pos, cube5Pos, [-1, -8, -15])*/
 
 		addWorldObject(cube1, cube1Pos)
 		addWorldObject(cube2, cube2Pos)
 		addWorldObject(cube3, cube3Pos)
-		addWorldObject(cube4, cube4Pos)
-		addWorldObject(cube5, cube5Pos)
+		//addWorldObject(cube4, cube4Pos)
+		//addWorldObject(cube5, cube5Pos)
+
+		// add random shapes into the background
+		const modelsArray = Array.from(models.values())
+		for (let i = 0; i < 5; i++) {
+			const model = modelsArray[Math.floor(Math.random() * modelsArray.length)]
+			//const model = modelsArray[0]
+			const worldObj = createObject(model)
+			mat4.rotate(worldObj.localPosition, worldObj.localPosition, Math.PI/2, [1, 1, 0])
+
+			const scale = Math.random() * 0.5 + 0.5 // random number between 0.5 - 1
+			mat4.scale(worldObj.localPosition, worldObj.localPosition, [scale, scale, scale])
+
+			const x = Math.random() * 20 - 10
+			const y = -Math.random() * 10 - 8
+			const z = -Math.random() * 10 - 15
+
+			const objPos = mat4.create()
+			mat4.translate(objPos, objPos, [x, y, z])
+
+			addWorldObject(worldObj, objPos)
+
+			//const shape = createObject()
+		}
 	}, [])
 
 	// begin init
@@ -159,16 +183,16 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     // load models, then world
 		Promise.all([
 			loadModel(gl, 'sphere', './sphere.obj'),
-			loadModel(gl, 'torus', './torus.obj'),
-			loadModel(gl, 'cube', './cube.obj'),
-			loadModel(gl, 'iso', './iso.obj')
+			//loadModel(gl, 'torus', './torus.obj'),
+			//loadModel(gl, 'cube', './cube.obj'),
+			//loadModel(gl, 'iso', './iso.obj')
 		])
 			.then(models => {
 				// register each loaded model
-		    const loadedModels: Models = {}
+		    const loadedModels = new Map<string, MeshWithBuffers>()
 				models.forEach((model: ModelResult) => {
 					console.log(model.id)
-					loadedModels[model.id] = model.model
+					loadedModels.set(model.id, model.model)
 				})
 				loadWorld(gl, loadedModels)
 			})

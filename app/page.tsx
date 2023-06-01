@@ -23,14 +23,16 @@ const inViewOptions = {
 }
 
 enum Modals {
-	None,
-	Playlist,
-	Classabull
+	NONE,
+	PLAYLIST,
+	CLASSABULL,
+	REFONT,
+	WEBSITE
 }
 
 export default function Home() {
 
-	const [currentModal, setCurrentModal] = useState(Modals.None)
+	const [currentModal, setCurrentModal] = useState(Modals.NONE)
 	const [showNavBar, setShowNavBar] = useState(true)
 	const [scrollPosition, setScrollPosition] = useState(0)
 	const { ref: homeRef, inView: homeInView } = useInView(inViewOptions)
@@ -142,32 +144,32 @@ export default function Home() {
 					<CardContainer>
 
 						<ProjectCard>
-							<h3><b>Playlist</b></h3>
+							<img className={styles.prjCardLogo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.Classabull)}} />
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.PLAYLIST)}} />
 
 						</ProjectCard>
 
 						<ProjectCard>
-							<img className={styles.prjCardLogo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
+							<h3><b>Refont</b></h3>
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.Playlist)}} />
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.REFONT)}} />
 						</ProjectCard>
 					
 						<ProjectCard>
 							<h3><b>Classabull</b></h3>
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.CLASSABULL)}} />
 						</ProjectCard>
 
 						<ProjectCard>
 							<h3><b>this website!</b></h3>
 							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
 							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
-							<LinkButton label="Modrinth" img="https://docs.modrinth.com/img/logo.svg" onClick={() => {}} />
+							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.WEBSITE)}} />
 						</ProjectCard>
 
           </CardContainer>
@@ -193,8 +195,8 @@ export default function Home() {
 			/>
 
 			<ProjectModal
-				isOpen={currentModal == Modals.Playlist}
-				onClose={() => toggleModal(false, Modals.None)}
+				isOpen={currentModal == Modals.PLAYLIST}
+				onClose={() => toggleModal(false, Modals.NONE)}
 				logo="https://i.imgur.com/AtCmxQF.png"
 				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
 				buttons={[
@@ -210,8 +212,8 @@ export default function Home() {
 			</ProjectModal>
 
 			<ProjectModal
-				isOpen={currentModal == Modals.Classabull}
-				onClose={() => toggleModal(false, Modals.None)}
+				isOpen={currentModal == Modals.CLASSABULL}
+				onClose={() => toggleModal(false, Modals.NONE)}
 				logo="https://i.imgur.com/AtCmxQF.png"
 				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
 				buttons={[
@@ -219,6 +221,30 @@ export default function Home() {
 				]}
 			>
 				<p>test</p>
+			</ProjectModal>
+
+			<ProjectModal
+				isOpen={currentModal == Modals.REFONT}
+				onClose={() => toggleModal(false, Modals.NONE)}
+				logo="https://i.imgur.com/AtCmxQF.png"
+				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
+				buttons={[
+					{source: Sources.github, link: ""}
+				]}
+			>
+				<p>refont</p>
+			</ProjectModal>
+
+			<ProjectModal
+				isOpen={currentModal == Modals.WEBSITE}
+				onClose={() => toggleModal(false, Modals.NONE)}
+				logo="https://i.imgur.com/AtCmxQF.png"
+				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
+				buttons={[
+					{source: Sources.github, link: ""}
+				]}
+			>
+				<p>this website</p>
 			</ProjectModal>
 
     </main>
