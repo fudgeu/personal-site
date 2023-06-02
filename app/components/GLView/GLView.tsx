@@ -13,10 +13,6 @@ export type GLViewProps = {
 	scrollPosition: number
 }
 
-type Models = {
-	[key: string]: MeshWithBuffers
-}
-
 type ModelResult = {
 	model: MeshWithBuffers,
 	id: string

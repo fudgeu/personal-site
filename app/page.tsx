@@ -159,9 +159,9 @@ export default function Home() {
 						</ProjectCard>
 					
 						<ProjectCard>
-							<h3><b>Classabull</b></h3>
-							<img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
-							<p>a Minecraft mod rewriting the in-game music system, allowing for complete control over what and how music plays</p>
+							<img className={styles.prjCardLogo} src="./classabull-logo.png" alt="Classabull logo" />
+							<img className={styles.prjCardImg} src="/classabull1.png" alt="Screenshot" />
+							<p>A better way for USF students to build their class schedule</p>
 							<LinkButton label="See more" img="/expand.svg" onClick={() => {toggleModal(true, Modals.CLASSABULL)}} />
 						</ProjectCard>
 
@@ -214,13 +214,17 @@ export default function Home() {
 			<ProjectModal
 				isOpen={currentModal == Modals.CLASSABULL}
 				onClose={() => toggleModal(false, Modals.NONE)}
-				logo="https://i.imgur.com/AtCmxQF.png"
-				images={["https://i.imgur.com/7ZOgVEB.jpeg", "https://i.imgur.com/7ZOgVEB.jpeg" ,"https://i.imgur.com/7ZOgVEB.jpeg"]}
+				logo="./classabull-logo.png"
+				images={["./classabull1.png"]}
 				buttons={[
 					{source: Sources.github, link: ""}
 				]}
 			>
-				<p>test</p>
+				<p>Classabull was created during a 24-hour university hackathon - made with the goal of providing a better class scheduling experience for the students of USF. It features a sleek yet functional and easy to read UI, as well as a calendar to help visualize your week.</p>
+				<p>Written using:</p>
+				<p>- Next.js</p>
+				<p>- React.js</p>
+				<p>- Javascript</p>
 			</ProjectModal>
 
 			<ProjectModal
