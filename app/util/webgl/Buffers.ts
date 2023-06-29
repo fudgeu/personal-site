@@ -1,79 +1,41 @@
 export type BufferContainer = {
   positions: WebGLBuffer,
   colors: WebGLBuffer,
-	indices: WebGLBuffer,
-	normals: WebGLBuffer
-}
-
-export default function initBuffers(gl: WebGLRenderingContext): BufferContainer | null {
-  // create a buffer containing the positions of vertices to render
-  const positionBuffer = initPositionBuffer(gl)
-
-  if (positionBuffer == null) {
-    console.error("Failed to initialize buffers, position buffer is empty")
-    return null
-  }
-
-  const colorBuffer = initColorBuffers(gl)
-
-  if (colorBuffer == null) {
-    console.error("Failed to initialize buffers, color buffer is empty")
-    return null
-  }
-
-	const indexBuffer = initIndexBuffer(gl)
-
-	if (indexBuffer == null) {
-		console.error("Failed to initialize buffers, index buffer is empty")
-		return null
-	}
-
-	const normalBuffer = initNormalBuffer(gl)
-
-	if (normalBuffer == null) {
-		console.error("Failed to initalize buffers, noraml buffer is empty")
-		return null
-	}
-
-  return {
-    positions: positionBuffer,
-    colors: colorBuffer,
-		indices: indexBuffer,
-		normals: normalBuffer
-  }
-}
+  indices: WebGLBuffer,
+  normals: WebGLBuffer
+};
 
 function initPositionBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
-  const positionBuffer = gl.createBuffer()
+  const positionBuffer = gl.createBuffer();
 
   // set the position buffer as the buffer to gl to perform operations on
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   const positions = [
-		// Front face
-		-1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
+    // Front face
+    -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0,
 
-		// Back face
-		-1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
-	
-		// Top face
-		-1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
-	
-		// Bottom face
-		-1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
-	
-		// Right face
-		1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
-	
-		// Left face
-		-1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0,
-	]
+    // Back face
+    -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0,
+
+    // Top face
+    -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, -1.0,
+
+    // Bottom face
+    -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0,
+
+    // Right face
+    1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, 1.0,
+
+    // Left face
+    -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0, -1.0,
+  ];
 
   // supply position buffer with positions
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW)
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
   // return gl buffer with positions supplied
-  return positionBuffer
+  return positionBuffer;
 }
 
 function initIndexBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
@@ -128,7 +90,7 @@ function initIndexBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
   gl.bufferData(
     gl.ELEMENT_ARRAY_BUFFER,
     new Uint16Array(indices),
-    gl.STATIC_DRAW
+    gl.STATIC_DRAW,
   );
 
   return indexBuffer;
@@ -136,29 +98,29 @@ function initIndexBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
 
 function initColorBuffers(gl: WebGLRenderingContext): WebGLBuffer | null {
   const faceColors = [
-		[1.0, 1.0, 1.0, 1.0], // Front face: white
-		[1.0, 1.0, 1.0, 1.0], // Back face: red
-		[1.0, 1.0, 1.0, 1.0], // Top face: green
-		[1.0, 1.0, 1.0, 1.0], // Bottom face: blue
-		[1.0, 1.0, 1.0, 1.0], // Right face: yellow
-		[1.0, 1.0, 1.0, 1.0], // Left face: purple
-	];
-	
-	// Convert the array of colors into a table for all the vertices.
-	
-	let colors: number[] = [];
-	
-	for (var j = 0; j < faceColors.length; ++j) {
-		const c = faceColors[j];
-		// Repeat each color four times for the four vertices of the face
-		colors = colors.concat(c, c, c, c);
-	}
+    [1.0, 1.0, 1.0, 1.0], // Front face: white
+    [1.0, 1.0, 1.0, 1.0], // Back face: red
+    [1.0, 1.0, 1.0, 1.0], // Top face: green
+    [1.0, 1.0, 1.0, 1.0], // Bottom face: blue
+    [1.0, 1.0, 1.0, 1.0], // Right face: yellow
+    [1.0, 1.0, 1.0, 1.0], // Left face: purple
+  ];
 
-  const colorBuffer = gl.createBuffer()
-  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer)
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW)
+  // Convert the array of colors into a table for all the vertices.
 
-  return colorBuffer
+  let colors: number[] = [];
+
+  for (let j = 0; j < faceColors.length; ++j) {
+    const c = faceColors[j];
+    // Repeat each color four times for the four vertices of the face
+    colors = colors.concat(c, c, c, c);
+  }
+
+  const colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+
+  return colorBuffer;
 }
 
 function initNormalBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
@@ -188,4 +150,42 @@ function initNormalBuffer(gl: WebGLRenderingContext): WebGLBuffer | null {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexNormals), gl.STATIC_DRAW);
 
   return normalBuffer;
+}
+
+export default function initBuffers(gl: WebGLRenderingContext): BufferContainer | null {
+  // create a buffer containing the positions of vertices to render
+  const positionBuffer = initPositionBuffer(gl);
+
+  if (positionBuffer == null) {
+    console.error('Failed to initialize buffers, position buffer is empty');
+    return null;
+  }
+
+  const colorBuffer = initColorBuffers(gl);
+
+  if (colorBuffer == null) {
+    console.error('Failed to initialize buffers, color buffer is empty');
+    return null;
+  }
+
+  const indexBuffer = initIndexBuffer(gl);
+
+  if (indexBuffer == null) {
+    console.error('Failed to initialize buffers, index buffer is empty');
+    return null;
+  }
+
+  const normalBuffer = initNormalBuffer(gl);
+
+  if (normalBuffer == null) {
+    console.error('Failed to initalize buffers, noraml buffer is empty');
+    return null;
+  }
+
+  return {
+    positions: positionBuffer,
+    colors: colorBuffer,
+    indices: indexBuffer,
+    normals: normalBuffer,
+  };
 }

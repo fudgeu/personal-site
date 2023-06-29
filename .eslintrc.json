@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "airbnb",
+        "airbnb-typescript",
+        "next"
+    ],
+    "parserOptions": {
+        "project": "tsconfig.json",
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "function-paren-newline": ["off"],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-bitwise": ["off"] // Needed for WebGL
+    },
+    "settings": {
+        "react": {
+          "version": "detect"
+        }
+      }
 }
