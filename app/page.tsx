@@ -93,6 +93,7 @@ export default function Home() {
               aka
               {' '}
               <b>patrick koss</b>
+              {' '}
               &bull; aspiring web and game developer
             </h3>
           </div>
@@ -111,23 +112,39 @@ export default function Home() {
 
             <AboutCard>
               <h3><b>welcome!</b></h3>
-              <p>lorem ipsum dolor blah blah blah lsdfsd jmowk wvke</p>
+              <p>
+                I&apos;m a current college student at the Univserity of Central Florida,
+                studying computer science! I love designing great user interfaces
+                and creating products that are both simple to use yet powerful.
+                on top of that, I also love experimenting and seeing what can be done
+                with code!
+              </p>
             </AboutCard>
 
             <AboutCard>
-              <h3><b>interests</b></h3>
-              <p>banana shooter and rtoblox</p>
+              <h3><b>stack & skills</b></h3>
+              <p>- Typescript</p>
+              <p>- React.js</p>
+              <p>- Next.js</p>
+              <p>- Java</p>
+              <p>- C#</p>
+              <p>- C</p>
             </AboutCard>
 
             <AboutCard>
-              <h3><b>my stack</b></h3>
-              <p>- react</p>
-              <p>- next.js</p>
+              <h3><b>currently learning</b></h3>
+              <p>- C++</p>
+              <p>- Rust</p>
+              <p>- OpenGL</p>
             </AboutCard>
 
             <AboutCard>
-              <h3><b>favorite things</b></h3>
-              <p>bread bread breaaad bred bead bread bread</p>
+              <h3><b>other interests</b></h3>
+              <p>
+                I do like to game occasionally - currently finishing up Breath of the
+                Wild before I move onto Tears of the Kingdom. I also love travelling to
+                both cities and through nature, as well as photographing those trips!
+              </p>
             </AboutCard>
 
           </CardContainer>
@@ -156,7 +173,7 @@ export default function Home() {
             <ProjectCard
               logo="./refont-logo.png"
               logoAltText="Refont logo"
-              openModal={() => toggleModal(true, Modals.CLASSABULL)}
+              openModal={() => toggleModal(true, Modals.REFONT)}
             >
               A tool to quickly and automatically change Discord&apos;s font
             </ProjectCard>
@@ -169,14 +186,6 @@ export default function Home() {
               A better way for USF students to build their class schedule
             </ProjectCard>
 
-            <ProjectCard
-              logo="./classabull-logo.png"
-              logoAltText="Website logo"
-              openModal={() => toggleModal(true, Modals.WEBSITE)}
-            >
-              bleg
-            </ProjectCard>
-
           </CardContainer>
 
         </div>
@@ -186,8 +195,8 @@ export default function Home() {
         <div className={styles.contactContent}>
           <h2>contact</h2>
           <p>
-            you can reach out to me regarding just about anything - from requests to just wanting to
-            talk! do keep in mind that i&apos;ll likely respond quicker via discord however :&#41;
+            You can reach out to me regarding just about anything - from requests to just wanting to
+            talk! Do keep in mind that I&apos;ll likely respond quicker via Discord however :&#41;
           </p>
           <LabelWithImg img="/email.svg" imgAlt="Email icon">patrickkoss@outlook.com</LabelWithImg>
           <LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">fudgeu</LabelWithImg>
@@ -209,9 +218,9 @@ export default function Home() {
         images={['https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg']}
         alts={['test', 'test', 'test']}
         buttons={[
-          { source: Sources.modrinth, link: '' },
-          { source: Sources.curseforge, link: '' },
-          { source: Sources.github, link: '' },
+          { source: Sources.modrinth, link: 'https://modrinth.com/mod/playlist' },
+          { source: Sources.curseforge, link: 'https://www.curseforge.com/minecraft/mc-mods/playlist' },
+          { source: Sources.github, link: 'https://github.com/fudgeu/playlist' },
         ]}
       >
         <p>
@@ -230,10 +239,15 @@ export default function Home() {
         isOpen={currentModal === Modals.CLASSABULL}
         onClose={() => toggleModal(false, Modals.NONE)}
         logo="./classabull-logo.png"
-        images={['./classabull1.png']}
-        alts={['test']}
+        images={['./classabull1.png', './classabull2.png', './classabull3.png']}
+        alts={[
+          'Screenshot of Classabull with a filled schedule',
+          'Screenshot of Classabull with an empty schedule',
+          'Second screenshot of Classabull with a filled schedule',
+        ]}
         buttons={[
-          { source: Sources.github, link: '' },
+          { source: Sources.github, link: 'https://github.com/fudgeu/classabull' },
+          { source: Sources.website, link: 'https://classabull.vercel.app/' },
         ]}
       >
         <p>
@@ -253,14 +267,25 @@ export default function Home() {
       <ProjectModal
         isOpen={currentModal === Modals.REFONT}
         onClose={() => toggleModal(false, Modals.NONE)}
-        logo="https://i.imgur.com/AtCmxQF.png"
-        images={['https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg']}
-        alts={['test', 'test', 'test']}
+        logo="./refont-logo.png"
+        images={['./refont1.png', './refont2.png', './refont3.png']}
+        alts={['Main page of Refont', 'Refont font selection', 'Refont settings']}
         buttons={[
-          { source: Sources.github, link: '' },
+          { source: Sources.github, link: 'https://github.com/fudgeu/Refont' },
         ]}
       >
-        <p>refont</p>
+        <p>
+          A tool to quickly and automatically change Discord&apos;s font.
+          Refont allows you to use any font installed on your computer, and
+          will automatically apply it every time your computer starts. The app
+          works by restarting Discord with an open debugging socket that Refont
+          is able to inject CSS through.
+        </p>
+        <br />
+        <p><b>Written using:</b></p>
+        <p>- React.js</p>
+        <p>- Electron</p>
+        <p>- Typescript</p>
       </ProjectModal>
 
       <ProjectModal

@@ -22,7 +22,7 @@
 
 .galImage {
 	border-radius: var(--border-radius);
-	width: 25em;
+	height: 15em;
 	max-width: 100%;
 }
 

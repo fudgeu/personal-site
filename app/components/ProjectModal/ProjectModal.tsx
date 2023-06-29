@@ -16,9 +16,10 @@ type Source = {
 };
 
 export const Sources = {
-  github: { img: 'https://docs.modrinth.com/img/logo.svg', label: 'Github' },
-  modrinth: { img: 'https://docs.modrinth.com/img/logo.svg', label: 'Modrinth' },
-  curseforge: { img: 'https://docs.modrinth.com/img/logo.svg', label: 'Curseforge' },
+  github: { img: './github-logo.svg', label: 'Github' },
+  modrinth: { img: './modrinth-logo.svg', label: 'Modrinth' },
+  curseforge: { img: './curseforge-logo.svg', label: 'Curseforge' },
+  website: { img: './open-new-tab.svg', label: 'Visit' },
 };
 
 type Button = {
@@ -71,7 +72,7 @@ export default function ProjectModal(
               key={button.link}
               label={button.source.label}
               img={button.source.img}
-              onClick={() => { }}
+              onClick={() => { window.open(button.link, '_blank', 'noreferrer'); }}
             />
           ))}
         </div>
