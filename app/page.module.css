@@ -79,20 +79,6 @@
 	transform: scale(0.7);
 }
 
-.prjCardLogo {
-	align-self: flex-start;
-	height: 3em;
-}
-
-.projectCardButtons {
-	display: flex;
-	gap: 1em;
-}
-
-.prjCardImg {
-	border-radius: var(--border-radius);
-}
-
 /* contact section */
 
 .contactContent {

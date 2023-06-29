@@ -10,7 +10,6 @@ import CardContainer from './components/CardContainer/cardContainer';
 import AboutCard from './components/AboutCard/aboutCard';
 import NavBar from './components/navbar/navbar';
 import ProjectCard from './components/ProjectCard/projectCard';
-import LinkButton from './components/LinkButton/LinkButton';
 import ProjectModal, { Sources } from './components/ProjectModal/ProjectModal';
 import transitionStyle from './util/TransitionStyleMap';
 import LabelWithImg from './components/LabelWithImg/LabelWithImg';
@@ -144,36 +143,37 @@ export default function Home() {
 
           <CardContainer>
 
-            <ProjectCard>
-              <img className={styles.prjCardLogo} src="https://i.imgur.com/AtCmxQF.png" alt="Playlist logo" />
-              <img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
-              <p>
-                A Minecraft mod rewriting the in-game music system, allowing for complete control
-                over what and how music plays
-              </p>
-              <LinkButton label="See more" img="/expand.svg" onClick={() => { toggleModal(true, Modals.PLAYLIST); }} />
-
+            <ProjectCard
+              logo="https://i.imgur.com/AtCmxQF.png"
+              logoAltText="Playlist logo"
+              openModal={() => toggleModal(true, Modals.PLAYLIST)}
+            >
+              A Minecraft mod rewriting the in-game music system, allowing for complete control
+              over what and how music plays
             </ProjectCard>
 
-            <ProjectCard>
-              <h3><b>Refont</b></h3>
-              <img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
-              <p>bleg</p>
-              <LinkButton label="See more" img="/expand.svg" onClick={() => { toggleModal(true, Modals.REFONT); }} />
+            <ProjectCard
+              logo="./refont-logo.png"
+              logoAltText="Refont logo"
+              openModal={() => toggleModal(true, Modals.CLASSABULL)}
+            >
+              A tool to quickly and automatically change Discord&apos;s font
             </ProjectCard>
 
-            <ProjectCard>
-              <img className={styles.prjCardLogo} src="./classabull-logo.png" alt="Classabull logo" />
-              <img className={styles.prjCardImg} src="/classabull1.png" alt="Screenshot" />
-              <p>A better way for USF students to build their class schedule</p>
-              <LinkButton label="See more" img="/expand.svg" onClick={() => { toggleModal(true, Modals.CLASSABULL); }} />
+            <ProjectCard
+              logo="./classabull-logo.png"
+              logoAltText="Classabull logo"
+              openModal={() => toggleModal(true, Modals.CLASSABULL)}
+            >
+              A better way for USF students to build their class schedule
             </ProjectCard>
 
-            <ProjectCard>
-              <h3><b>this website!</b></h3>
-              <img className={styles.prjCardImg} src="/sampleScreenshot.jpeg" alt="Screenshot" />
-              <p>bleg</p>
-              <LinkButton label="See more" img="/expand.svg" onClick={() => { toggleModal(true, Modals.WEBSITE); }} />
+            <ProjectCard
+              logo="./classabull-logo.png"
+              logoAltText="Website logo"
+              openModal={() => toggleModal(true, Modals.WEBSITE)}
+            >
+              bleg
             </ProjectCard>
 
           </CardContainer>
@@ -189,7 +189,7 @@ export default function Home() {
             talk! do keep in mind that i&apos;ll likely respond quicker via discord however :&#41;
           </p>
           <LabelWithImg img="/email.svg" imgAlt="Email icon">patrickkoss@outlook.com</LabelWithImg>
-          <LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">Fudgeu#6969</LabelWithImg>
+          <LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">fudgeu</LabelWithImg>
         </div>
       </div>
 
@@ -215,13 +215,14 @@ export default function Home() {
       >
         <p>
           A Minecraft mod rewriting the in-game music system, allowing for complete control
-          over what and how music plays. Amongs the settings offered to players are the
+          over what and how music plays. Amongst the settings offered to players are the
           ability to control the time between songs, as well as the conditions under which
           song is played.
         </p>
-        <p>written using:</p>
-        <p>- java</p>
-        <p>- fabric toolchain</p>
+        <br />
+        <p><b>Written using:</b></p>
+        <p>- Java</p>
+        <p>- Fabric toolchain</p>
       </ProjectModal>
 
       <ProjectModal
@@ -241,7 +242,8 @@ export default function Home() {
           functional and easy to read UI, as well as a calendar to help
           visualize your week.
         </p>
-        <p>Written using:</p>
+        <br />
+        <p><b>Written using:</b></p>
         <p>- Next.js</p>
         <p>- React.js</p>
         <p>- Javascript</p>

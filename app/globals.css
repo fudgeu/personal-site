@@ -79,6 +79,11 @@ a {
   }
 }
 
+p {
+	text-align: justify;
+  line-height: 1.4em;
+}
+
 h1 {
   font-size: 6em;
 }

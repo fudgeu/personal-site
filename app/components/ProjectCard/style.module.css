@@ -12,6 +12,16 @@
   transition: background-color 0.1s, backdrop-filter 0.1s;
 }
 
+.logo {
+	align-self: flex-start;
+	height: 3em;
+}
+
+.seeMoreButton {
+  margin-top: auto;
+  align-self: flex-end;
+}
+
 /* Non-touch devices */
 @media (hover: hover) and (pointer: fine) {
 	.projectCard:hover {
