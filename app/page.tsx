@@ -85,13 +85,14 @@ export default function Home() {
         <div className={styles.homeContent}>
 
           <div className={styles.nameTag}>
-            <h1>patrick koss</h1>
+            <h1>fudgeu</h1>
           </div>
 
           <div className={styles.nameTagSubtext}>
             <h3>
               aka
-              <b>fudgeu</b>
+              {' '}
+              <b>patrick koss</b>
               &bull; aspiring web and game developer
             </h3>
           </div>
