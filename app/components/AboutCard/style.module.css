@@ -5,9 +5,9 @@
   padding: 1.5em;
   border: solid 2px #ffffff10;
   border-radius: var(--border-radius);
-  min-width: 18em;
+  min-width: 22em;
   max-width: 32em;
-  height: 18em;
+  height: 22em;
   scroll-snap-align: start;
 	backdrop-filter: blur(1em);
   transition: background-color 0.1s, backdrop-filter 0.1s;

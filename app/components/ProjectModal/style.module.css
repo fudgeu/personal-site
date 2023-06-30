@@ -27,7 +27,7 @@
 	backdrop-filter: blur(1em);
 	gap: 1.5em;
 	padding: 2em 0;
-	align-items: start;
+	align-items: flex-start;
 	transition: transform 0.2s, opacity 0.2s;
 }
 
@@ -98,5 +98,7 @@
 	.projectModal {
 		border: none;
 		background-color: transparent;
+		height: 100%;
+		overflow-y: scroll;
 	}
 }
