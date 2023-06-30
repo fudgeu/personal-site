@@ -51,32 +51,34 @@ export default function ProjectModal(
 
   return (
     <div className={transitionStyle(styles, 'container', status)}>
-      <div className={transitionStyle(styles, 'projectModal', status)}>
+      <div className={styles.mobileScrollContainer}>
+        <div className={transitionStyle(styles, 'projectModal', status)}>
 
-        <div className={styles.topBar}>
-          <img className={styles.logo} src={logo} alt="Playlist logo" />
-          <LinkButton label="" img="/close.svg" onClick={onClose} />
+          <div className={styles.topBar}>
+            <img className={styles.logo} src={logo} alt="Playlist logo" />
+            <LinkButton label="" img="/close.svg" onClick={onClose} />
+          </div>
+
+          <ImageGallery>
+            {images.map((image, index) => <GalImage key={image} src={image} alt={alts[index]} />)}
+          </ImageGallery>
+
+          <div className={styles.description}>
+            {children}
+          </div>
+
+          <div className={styles.buttons}>
+            {buttons.map((button) => (
+              <LinkButton
+                key={button.link}
+                label={button.source.label}
+                img={button.source.img}
+                onClick={() => { window.open(button.link, '_blank', 'noreferrer'); }}
+              />
+            ))}
+          </div>
+
         </div>
-
-        <ImageGallery>
-          {images.map((image, index) => <GalImage key={image} src={image} alt={alts[index]} />)}
-        </ImageGallery>
-
-        <div className={styles.description}>
-          {children}
-        </div>
-
-        <div className={styles.buttons}>
-          {buttons.map((button) => (
-            <LinkButton
-              key={button.link}
-              label={button.source.label}
-              img={button.source.img}
-              onClick={() => { window.open(button.link, '_blank', 'noreferrer'); }}
-            />
-          ))}
-        </div>
-
       </div>
     </div>
   );
