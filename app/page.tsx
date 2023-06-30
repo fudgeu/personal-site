@@ -113,11 +113,10 @@ export default function Home() {
             <AboutCard>
               <h3><b>welcome!</b></h3>
               <p>
-                I&apos;m a current college student at the Univserity of Central Florida,
-                studying computer science! I love designing great user interfaces
-                and creating products that are both simple to use yet powerful.
-                on top of that, I also love experimenting and seeing what can be done
-                with code!
+                I&apos;m a current college student at UCF, studying computer science!
+                I love designing great user interfaces and creating products that are
+                both simple to use yet powerful. On top of that, I also love experimenting
+                and seeing what can be done with code!
               </p>
             </AboutCard>
 
@@ -215,7 +214,7 @@ export default function Home() {
         isOpen={currentModal === Modals.PLAYLIST}
         onClose={() => toggleModal(false, Modals.NONE)}
         logo="https://i.imgur.com/AtCmxQF.png"
-        images={['https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg']}
+        images={['./playlist1.png', './playlist2.png', './playlist3.png']}
         alts={['test', 'test', 'test']}
         buttons={[
           { source: Sources.modrinth, link: 'https://modrinth.com/mod/playlist' },
@@ -287,20 +286,6 @@ export default function Home() {
         <p>- Electron</p>
         <p>- Typescript</p>
       </ProjectModal>
-
-      <ProjectModal
-        isOpen={currentModal === Modals.WEBSITE}
-        onClose={() => toggleModal(false, Modals.NONE)}
-        logo="https://i.imgur.com/AtCmxQF.png"
-        images={['https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg', 'https://i.imgur.com/7ZOgVEB.jpeg']}
-        alts={['test', 'test', 'test']}
-        buttons={[
-          { source: Sources.github, link: '' },
-        ]}
-      >
-        <p>this website</p>
-      </ProjectModal>
-
     </main>
   );
 }

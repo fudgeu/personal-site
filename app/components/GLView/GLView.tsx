@@ -165,7 +165,6 @@ export default function GLView({ scrollPosition }: GLViewProps) {
         // register each loaded model
         const loadedModels = new Map<string, MeshWithBuffers>();
         models.forEach((model: ModelResult) => {
-          console.log(model.id);
           loadedModels.set(model.id, model.model);
         });
         loadWorld(gl, loadedModels);
