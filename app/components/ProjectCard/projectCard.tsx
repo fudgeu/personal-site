@@ -24,7 +24,7 @@ export default function ProjectCard(
         {children}
       </p>
       <div className={styles.seeMoreButton}>
-        <LinkButton label="More info" img="/expand.svg" alt='' onClick={openModal} />
+        <LinkButton label="More info" img="/expand.svg" alt="" onClick={openModal} />
       </div>
     </article>
   );

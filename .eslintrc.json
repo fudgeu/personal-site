@@ -19,7 +19,8 @@
     "rules": {
         "function-paren-newline": ["off"],
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-        "no-bitwise": ["off"] // Needed for WebGL
+        "no-bitwise": ["off"], // Needed for WebGL
+        "react/jsx-one-expression-per-line": ["off"]
     },
     "settings": {
         "react": {

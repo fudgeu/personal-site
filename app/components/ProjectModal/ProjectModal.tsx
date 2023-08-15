@@ -56,7 +56,7 @@ export default function ProjectModal(
 
           <div className={styles.topBar}>
             <img className={styles.logo} src={logo} alt="Playlist" />
-            <LinkButton label="" img="/close.svg" alt='Close' onClick={onClose} />
+            <LinkButton label="" img="/close.svg" alt="Close" onClick={onClose} />
           </div>
 
           <ImageGallery>
@@ -73,7 +73,7 @@ export default function ProjectModal(
                 key={button.link}
                 label={button.source.label}
                 img={button.source.img}
-                alt=''
+                alt=""
                 onClick={() => { window.open(button.link, '_blank', 'noreferrer'); }}
               />
             ))}

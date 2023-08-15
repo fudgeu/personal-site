@@ -10,7 +10,9 @@ type LinkButtonProps = {
   onClick: () => void
 };
 
-export default function LinkButton({ label, img, alt, onClick }: LinkButtonProps) {
+export default function LinkButton({
+  label, img, alt, onClick,
+}: LinkButtonProps) {
   return (
     <button type="button" className={styles.linkButton} onClick={onClick}>
       {img !== '' && (<Image className={styles.linkButtonImg} src={img} width={25} height={25} alt={alt} />)}
