@@ -74,6 +74,7 @@ export default function ProjectModal(
                 label={button.source.label}
                 img={button.source.img}
                 alt=""
+                isHyperlink
                 onClick={() => { window.open(button.link, '_blank', 'noreferrer'); }}
               />
             ))}

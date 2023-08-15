@@ -10,6 +10,10 @@
 	transition: background-color 0.1s, transform 0.1s;
 }
 
+.hyperlink:hover>p {
+	text-decoration: underline;
+}
+
 .linkButtonImg {
 	-webkit-user-drag: none;
 	user-select: none;
