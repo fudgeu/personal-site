@@ -151,7 +151,7 @@ export default function Home() {
           <CardContainer>
             <ProjectCard
               logo="https://i.imgur.com/AtCmxQF.png"
-              logoAltText="Playlist logo"
+              logoAltText="Playlist"
               openModal={() => toggleModal(true, Modals.PLAYLIST)}
             >
               A Minecraft mod rewriting the in-game music system, allowing for complete control
@@ -160,7 +160,7 @@ export default function Home() {
 
             <ProjectCard
               logo="./refont-logo.png"
-              logoAltText="Refont logo"
+              logoAltText="Refont"
               openModal={() => toggleModal(true, Modals.REFONT)}
             >
               A tool to quickly and automatically change Discord&apos;s font
@@ -168,7 +168,7 @@ export default function Home() {
 
             <ProjectCard
               logo="./classabull-logo.png"
-              logoAltText="Classabull logo"
+              logoAltText="Classabull"
               openModal={() => toggleModal(true, Modals.CLASSABULL)}
             >
               A better way for USF students to build their class schedule
@@ -184,8 +184,8 @@ export default function Home() {
             You can reach out to me regarding just about anything - from requests to just wanting to
             talk! Do keep in mind that I&apos;ll likely respond quicker via Discord however :&#41;
           </p>
-          <LabelWithImg img="/email.svg" imgAlt="Email icon">patrickkoss@outlook.com</LabelWithImg>
-          <LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">fudgeu</LabelWithImg>
+          <LabelWithImg img="/email.svg" imgAlt="Email">patrickkoss@outlook.com</LabelWithImg>
+          <LabelWithImg img="/discord-mark.svg" imgAlt="Discord">fudgeu</LabelWithImg>
         </article>
       </section>
 
@@ -202,7 +202,7 @@ export default function Home() {
         onClose={() => toggleModal(false, Modals.NONE)}
         logo="https://i.imgur.com/AtCmxQF.png"
         images={['./playlist1.png', './playlist2.png', './playlist3.png']}
-        alts={['test', 'test', 'test']}
+        alts={['Main interface', 'Settings menu', 'Add songs to playlist menu']}
         buttons={[
           { source: Sources.modrinth, link: 'https://modrinth.com/mod/playlist' },
           { source: Sources.curseforge, link: 'https://www.curseforge.com/minecraft/mc-mods/playlist' },
@@ -227,9 +227,9 @@ export default function Home() {
         logo="./classabull-logo.png"
         images={['./classabull1.png', './classabull2.png', './classabull3.png']}
         alts={[
-          'Screenshot of Classabull with a filled schedule',
-          'Screenshot of Classabull with an empty schedule',
-          'Second screenshot of Classabull with a filled schedule',
+          'Classabull interface with a filled schedule',
+          'Classabull interface with an empty schedule',
+          'Classabull interface with a differently filled schedule',
         ]}
         buttons={[
           { source: Sources.github, link: 'https://github.com/fudgeu/classabull' },
