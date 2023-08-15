@@ -18,7 +18,7 @@ export default function ProjectCard(
   }: ProjectCardProps,
 ) {
   return (
-    <div className={styles.projectCard}>
+    <article className={styles.projectCard}>
       <img className={styles.logo} src={logo} alt={logoAltText} />
       <p>
         {children}
@@ -26,6 +26,6 @@ export default function ProjectCard(
       <div className={styles.seeMoreButton}>
         <LinkButton label="More info" img="/expand.svg" onClick={openModal} />
       </div>
-    </div>
+    </article>
   );
 }

@@ -10,6 +10,9 @@
 }
 
 .navItemContainer {
+	display: flex;
+	justify-content: center;
+	margin: 0.35em;
 	padding: 0.35em;
 	border-radius: var(--border-radius);
 	transition: background-color 0.1s, transform 0.1s;

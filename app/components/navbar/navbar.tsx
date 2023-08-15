@@ -41,13 +41,13 @@ export default function NavBar(
   };
 
   return (
-    <div className={transitionStyle(styles, 'navBarContainer', status)}>
-      <div className={styles.navBar}>
-        <NavBarItem id="home" altName="Home" isActive={isActiveSection} />
-        <NavBarItem id="about" altName="About" isActive={isActiveSection} />
-        <NavBarItem id="projects" altName="Projects" isActive={isActiveSection} />
-        <NavBarItem id="contact" altName="Contact" isActive={isActiveSection} />
-      </div>
-    </div>
+    <nav className={transitionStyle(styles, 'navBarContainer', status)}>
+      <ul className={styles.navBar}>
+        <li><NavBarItem id="home" altName="Home" isActive={isActiveSection} /></li>
+        <li><NavBarItem id="about" altName="About" isActive={isActiveSection} /></li>
+        <li><NavBarItem id="projects" altName="Projects" isActive={isActiveSection} /></li>
+        <li><NavBarItem id="contact" altName="Contact" isActive={isActiveSection} /></li>
+      </ul>
+    </nav>
   );
 }

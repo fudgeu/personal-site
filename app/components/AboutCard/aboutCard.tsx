@@ -18,7 +18,7 @@ export default function AboutCard({ children }: AboutCardProps) {
   const { ref, inView } = useInView(inViewOptions);
 
   return (
-    <div
+    <article
       className={clsx({
         [styles.aboutCard]: true,
         [styles.aboutCardActive]: inView,
@@ -26,6 +26,6 @@ export default function AboutCard({ children }: AboutCardProps) {
       ref={ref}
     >
       {children}
-    </div>
+    </article>
   );
 }

@@ -81,35 +81,26 @@ export default function Home() {
     <main className={styles.main} ref={mainRef}>
       <GLView scrollPosition={scrollPosition} />
 
-      <div id="home" className={styles.pageSection} ref={homeRef}>
-        <div className={styles.homeContent}>
-
+      <section id="home" className={styles.pageSection} ref={homeRef}>
+        <header className={styles.homeContent}>
           <div className={styles.nameTag}>
             <h1>fudgeu</h1>
           </div>
-
           <div className={styles.nameTagSubtext}>
-            <h3>
-              aka
-              {' '}
-              <b>patrick koss</b>
-              {' '}
-              &bull; aspiring web and game developer
-            </h3>
+            <h2>
+              aka <b>patrick koss</b> &bull; aspiring web and game developer
+            </h2>
           </div>
+        </header>
+      </section>
 
-        </div>
-      </div>
-
-      <div id="about" className={styles.splitPageSection} ref={aboutRef}>
+      <section id="about" className={styles.splitPageSection} ref={aboutRef}>
         <div className={styles.aboutContent}>
-
           <div className={styles.splitSection}>
             <h2>about me</h2>
           </div>
 
           <CardContainer>
-
             <AboutCard>
               <h3><b>welcome!</b></h3>
               <p>
@@ -149,17 +140,15 @@ export default function Home() {
           </CardContainer>
 
         </div>
-      </div>
+      </section>
 
-      <div id="projects" className={styles.splitPageSection} ref={projectsRef}>
+      <section id="projects" className={styles.splitPageSection} ref={projectsRef}>
         <div className={transitionStyle(styles, 'projectsContent', status)}>
-
           <div className={styles.splitSection}>
             <h2>projects</h2>
           </div>
 
           <CardContainer>
-
             <ProjectCard
               logo="https://i.imgur.com/AtCmxQF.png"
               logoAltText="Playlist logo"
@@ -184,14 +173,12 @@ export default function Home() {
             >
               A better way for USF students to build their class schedule
             </ProjectCard>
-
           </CardContainer>
-
         </div>
-      </div>
+      </section>
 
-      <div id="contact" className={styles.pageSection} ref={contactRef}>
-        <div className={styles.contactContent}>
+      <section id="contact" className={styles.pageSection} ref={contactRef}>
+        <article className={styles.contactContent}>
           <h2>contact</h2>
           <p>
             You can reach out to me regarding just about anything - from requests to just wanting to
@@ -199,8 +186,8 @@ export default function Home() {
           </p>
           <LabelWithImg img="/email.svg" imgAlt="Email icon">patrickkoss@outlook.com</LabelWithImg>
           <LabelWithImg img="/discord-mark.svg" imgAlt="Discord icon">fudgeu</LabelWithImg>
-        </div>
-      </div>
+        </article>
+      </section>
 
       <NavBar
         show={showNavBar}

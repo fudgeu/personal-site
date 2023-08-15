@@ -47,7 +47,12 @@
 
 .nameTagSubtext {
   padding-left: 0.25em;
-  color: #aaaaaa
+  color: #aaaaaa;
+}
+
+.nameTagSubtext>h2 {
+  font-size: 2rem;
+  font-weight: normal;
 }
 
 /* about section */
@@ -116,6 +121,10 @@
     padding: 0 var(--page-section-padding);
   }
 
+  .nameTagSubtext>h2 {
+    font-size: 1.4rem;
+  }
+
 	.prjCardImg {
 		display: none;
 	}
@@ -131,16 +140,6 @@
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
     grid-template-columns: repeat(2, 50%);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .vercelLogo {
-    filter: invert(1);
-  }
-
-  .logo {
-    filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
   }
 }
 

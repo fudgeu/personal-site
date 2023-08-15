@@ -1,17 +1,20 @@
 .navBarContainer {
-  height: 100%;
-  position: fixed;
-  padding: var(--page-section-padding);
+	height: 100%;
+	position: fixed;
+	padding: var(--page-section-padding);
 	overflow-y: hidden;
 	transition: transform 0.2s;
 	z-index: 20;
 }
 
-.navBarContainer-entering, .navBarContainer-entered {
+.navBarContainer-entering,
+.navBarContainer-entered {
 	transform: translateX(0%);
 }
 
-.navBarContainer-exiting, .navBarContainer-exited, .navBarContainer-preEnter {
+.navBarContainer-exiting,
+.navBarContainer-exited,
+.navBarContainer-preEnter {
 	transform: translateX(-100%);
 }
 
@@ -22,27 +25,35 @@
 	justify-content: center;
 	gap: 4.5em;
 	height: 100%;
-  background-color: var(--container-bg-color);
-  backdrop-filter: blur(0.4em);
-  width: 4em;
-  border: solid 2px var(--border-color);
-  border-radius: var(--border-radius);
+	background-color: var(--container-bg-color);
+	backdrop-filter: blur(0.4em);
+	width: 4em;
+	border: solid 2px var(--border-color);
+	border-radius: var(--border-radius);
+}
+
+.navBar>li {
+	list-style-type: none;
+	width: 100%
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-  .navBarContainer {
-    width: 100%;
-    height: auto;
-    bottom: 0px;
-  }
+	.navBarContainer {
+		width: 100%;
+		height: auto;
+		bottom: 0px;
+	}
 
-	.navBarContainer-entering, .navBarContainer-entered {
+	.navBarContainer-entering,
+	.navBarContainer-entered {
 		transition: transform 0.2s ease-in-out;
 		transform: translateY(0%);
 	}
-	
-	.navBarContainer-exiting, .navBarContainer-exited, .navBarContainer-preEnter {
+
+	.navBarContainer-exiting,
+	.navBarContainer-exited,
+	.navBarContainer-preEnter {
 		transform: translateY(100%);
 		transition: transform 0.2s ease-in;
 	}
@@ -51,12 +62,11 @@
 		visibility: hidden;
 	}
 
-  .navBar {
+	.navBar {
 		flex-direction: row;
 		justify-content: space-around;
 		gap: 0em;
-    width: 100%;
-    height: 4em;
-  }
+		width: 100%;
+		height: 4em;
+	}
 }
-
