@@ -6,14 +6,17 @@ import { useEffect, useRef, useState } from 'react';
 import useTransition from 'react-transition-state';
 import { useInView } from 'react-intersection-observer';
 import styles from './page.module.css';
-import CardContainer from './components/CardContainer/cardContainer';
-import AboutCard from './components/AboutCard/aboutCard';
 import NavBar from './components/navbar/navbar';
 import ProjectCard from './components/ProjectCard/projectCard';
 import ProjectModal, { Sources } from './components/ProjectModal/ProjectModal';
 import transitionStyle from './util/TransitionStyleMap';
 import LabelWithImg from './components/LabelWithImg/LabelWithImg';
 import GLView from './components/GLView/GLView';
+import Button from './components/Button/Button';
+import BackgroundAmbience from './components/BackgroundAmbience/BackgroundAmbience';
+import AboutArticle from './components/AboutArticle/AboutArticle';
+import AdaptableBullets from './components/AdaptableBullets/AdaptableBullets';
+import ProjectArticle, { Alignment } from './ProjectArticle/ProjectArticle';
 
 const inViewOptions = {
   root: null,
@@ -79,105 +82,104 @@ export default function Home() {
 
   return (
     <main className={styles.main} ref={mainRef}>
+
       <GLView scrollPosition={scrollPosition} />
 
-      <section id="home" className={styles.pageSection} ref={homeRef}>
+      <section id="home" className={styles.section} ref={homeRef}>
         <header className={styles.homeContent}>
           <div className={styles.nameTag}>
-            <h1>fudgeu</h1>
+            <h1>hi, i&apos;m <span className={styles.nameText}>fudgeu</span></h1>
           </div>
           <div className={styles.nameTagSubtext}>
-            <h2>
-              aka <b>patrick koss</b> &bull; aspiring web and game developer
-            </h2>
+            <p>
+              aka <b>patrick koss</b> &bull; an aspiring web and game
+              developer, i love creating software everyone can benefit from
+            </p>
+          </div>
+          <div className={styles.resumeButtonContainer}>
+            <Button label="see my resume" onClick={() => {}} />
           </div>
         </header>
       </section>
 
-      <section id="about" className={styles.splitPageSection} ref={aboutRef}>
-        <div className={styles.aboutContent}>
-          <div className={styles.splitSection}>
-            <h2>about me</h2>
-          </div>
-
-          <CardContainer>
-            <AboutCard>
-              <h3><b>welcome!</b></h3>
+      <section id="about" className={styles.section} ref={aboutRef}>
+        <div className={styles.aboutSection}>
+          <h2>about</h2>
+          <span className={styles.separator} />
+          <div className={styles.aboutArticles}>
+            <AboutArticle>
+              <h3>welcome!</h3>
               <p>
                 I&apos;m a current college student at UCF, studying computer science!
-                I love designing great user interfaces and creating products that are
-                both simple to use yet powerful. On top of that, I also love experimenting
-                and seeing what can be done with code!
+                I love designing great user interfaces and creating products that
+                are both simple to use yet powerful. On top of that, I also love
+                experimenting and seeing what can be done with code!
               </p>
-            </AboutCard>
+            </AboutArticle>
 
-            <AboutCard>
-              <h3><b>stack & skills</b></h3>
-              <p>- Typescript</p>
-              <p>- React.js</p>
-              <p>- Next.js</p>
-              <p>- Java</p>
-              <p>- C#</p>
-              <p>- C</p>
-            </AboutCard>
+            <AboutArticle>
+              <h3>skills</h3>
+              <p>I&apos;ve worked with the following languages and tools extensively:</p>
+              <AdaptableBullets>
+                <li>Typescript/Javascript</li>
+                <li>React.JS/Next.JS</li>
+                <li>Java</li>
+                <li>C</li>
+                <li>C#</li>
+                <li>Fabric Toolchain</li>
+              </AdaptableBullets>
+            </AboutArticle>
 
-            <AboutCard>
-              <h3><b>currently learning</b></h3>
-              <p>- C++</p>
-              <p>- Rust</p>
-              <p>- OpenGL</p>
-            </AboutCard>
-
-            <AboutCard>
-              <h3><b>other interests</b></h3>
+            <AboutArticle>
+              <h3>learning...</h3>
               <p>
-                I do like to game occasionally - currently finishing up Breath of the
-                Wild before I move onto Tears of the Kingdom. I also love travelling to
-                both cities and through nature, as well as photographing those trips!
+                I&apos;m always eager to try new things, especially new technologies.
+                Even if I personally will never use it, there is always something I can
+                learn that may apply to something that I will.
               </p>
-            </AboutCard>
+              <p>
+                At the moment, I&apos;m taking my time to learn the following:
+              </p>
+              <AdaptableBullets>
+                <li>C++</li>
+                <li>OpenGL/Vulkan</li>
+                <li>Rust</li>
+                <li>Unity Game Engine</li>
+              </AdaptableBullets>
+            </AboutArticle>
 
-          </CardContainer>
+            <AboutArticle>
+              <h3>other interests</h3>
+              <p>
+                Other things I love to do in my free time include skating, traveling
+                through both nature and through cities, and of course, playing some games.
+                I also love photography, especially while traveling, where I can take
+                photos of land and cityscapes.
+              </p>
+            </AboutArticle>
 
+          </div>
         </div>
       </section>
 
-      <section id="projects" className={styles.splitPageSection} ref={projectsRef}>
-        <div className={transitionStyle(styles, 'projectsContent', status)}>
-          <div className={styles.splitSection}>
-            <h2>projects</h2>
-          </div>
-
-          <CardContainer>
-            <ProjectCard
-              logo="https://i.imgur.com/AtCmxQF.png"
-              logoAltText="Playlist"
-              openModal={() => toggleModal(true, Modals.PLAYLIST)}
-            >
-              A Minecraft mod rewriting the in-game music system, allowing for complete control
-              over what and how music plays
-            </ProjectCard>
-
-            <ProjectCard
-              logo="./refont-logo.png"
-              logoAltText="Refont"
-              openModal={() => toggleModal(true, Modals.REFONT)}
-            >
-              A tool to quickly and automatically change Discord&apos;s font
-            </ProjectCard>
-
-            <ProjectCard
-              logo="./classabull-logo.png"
-              logoAltText="Classabull"
-              openModal={() => toggleModal(true, Modals.CLASSABULL)}
+      <section id="projects" className={styles.section} ref={projectsRef}>
+        <div className={styles.projectsSection}>
+          <h2>projects</h2>
+          <span className={styles.separator} />
+          <div className={styles.projectArticles}>
+            <ProjectArticle
+              logoSrc="classabull-logo.png"
+              thumbnailSrc="classabull1.png"
+              thumbnailAlt="Test"
+              alignment={Alignment.LEFT}
             >
               A better way for USF students to build their class schedule
-            </ProjectCard>
-          </CardContainer>
+            </ProjectArticle>
+          </div>
         </div>
       </section>
 
-      <section id="contact" className={styles.pageSection} ref={contactRef}>
+      <section id="contact" className={styles.section} ref={contactRef}>
         <article className={styles.contactContent}>
           <h2>contact</h2>
           <p>

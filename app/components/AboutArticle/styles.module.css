@@ -1,0 +1,13 @@
+.aboutArticle {
+
+}
+
+.aboutArticle>h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    padding-bottom: 1rem;
+}
+
+.aboutArticle>p {
+    padding-bottom: 1rem;
+}

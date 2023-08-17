@@ -1,0 +1,8 @@
+.list {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.list>li {
+  list-style-position: inside;
+}

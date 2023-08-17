@@ -1,0 +1,16 @@
+.container {
+    position: relative;
+    width: 100%;
+}
+
+.circle1 {
+    position: absolute;
+    width: 120vh;
+    height: 120vh;
+    top: calc(60vh - var(--page-section-padding));
+    left: calc(-60vh - var(--page-section-padding));
+
+    border-radius: 1000px;
+    background: radial-gradient(49.94% 49.94% at 49.94% 50.06%, #8B81FF 0%, rgba(80, 65, 255, 0.00) 100%);
+
+}

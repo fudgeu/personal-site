@@ -108,23 +108,40 @@ export default function GLView({ scrollPosition }: GLViewProps) {
       mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI / 2, [1, 1, 0]);
       mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75]);
       const cube1Pos = mat4.create();
-      mat4.translate(cube1Pos, cube1Pos, [-1.5, -0.5, -10]);
+      mat4.translate(cube1Pos, cube1Pos, [-5.5, -0.5, -10]);
 
       const cube2: Object3D = createObject(sphere);
       mat4.rotate(cube2.localPosition, cube2.localPosition, Math.PI / 2, [0, 1, 1]);
       mat4.scale(cube2.localPosition, cube2.localPosition, [0.75, 0.75, 0.75]);
       const cube2Pos = mat4.create();
-      mat4.translate(cube2Pos, cube2Pos, [1, -0.5, -6]);
+      mat4.translate(cube2Pos, cube2Pos, [-1.75, -0.5, -6]);
 
       const cube3: Object3D = createObject(sphere);
       mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI / 2, [1, 1, 1]);
       mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5]);
       const cube3Pos = mat4.create();
-      mat4.translate(cube3Pos, cube3Pos, [0, 0.5, -8]);
+      mat4.translate(cube3Pos, cube3Pos, [-3.4, 0.5, -8]);
+
+      // about page
+      const sphere4: Object3D = createObject(sphere);
+      mat4.rotate(sphere4.localPosition, sphere4.localPosition, Math.PI / 2, [1, 1, 1]);
+      mat4.scale(sphere4.localPosition, sphere4.localPosition, [0.5, 0.5, 0.5]);
+      const sphere4Pos = mat4.create();
+      mat4.translate(sphere4Pos, sphere4Pos, [-5.5, -12, -8]);
+
+      const sphere5: Object3D = createObject(sphere);
+      mat4.rotate(sphere5.localPosition, sphere5.localPosition, Math.PI / 2, [1, 1, 1]);
+      mat4.scale(sphere5.localPosition, sphere5.localPosition, [0.75, 0.75, 0.75]);
+      const sphere5Pos = mat4.create();
+      mat4.translate(sphere5Pos, sphere5Pos, [5.5, -6, -8]);
 
       addWorldObject(cube1, cube1Pos);
       addWorldObject(cube2, cube2Pos);
       addWorldObject(cube3, cube3Pos);
+      addWorldObject(sphere4, sphere4Pos);
+      addWorldObject(sphere5, sphere5Pos);
+
+
 
       // add random shapes into the background
       const modelsArray = Array.from(models.values());
@@ -143,7 +160,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
         const objPos = mat4.create();
         mat4.translate(objPos, objPos, [x, y, z]);
 
-        addWorldObject(worldObj, objPos);
+        //addWorldObject(worldObj, objPos);
       }
     },
     [],
@@ -194,7 +211,7 @@ export default function GLView({ scrollPosition }: GLViewProps) {
   useEffect(() => {
     const offset = scrollPosition - lastScrollPos;
     getWorldObjects().forEach(({ object, worldPosition }: WorldObject) => {
-      mat4.translate(worldPosition, worldPosition, [0, 0.002 * offset, 0]);
+      mat4.translate(worldPosition, worldPosition, [0, 0.01 * offset, 0]);
       mat4.rotate(object.localPosition, object.localPosition, 0.0003 * offset, [1, 1, 0]);
     });
     setLastScrollPos(scrollPosition);
@@ -213,7 +230,6 @@ export default function GLView({ scrollPosition }: GLViewProps) {
   return (
     <div className={styles.container}>
       <canvas width={windowDimensions.width} height={windowDimensions.height} ref={ref} />
-      <span className={styles.gradientOverlay} />
     </div>
   );
 }

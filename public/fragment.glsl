@@ -29,8 +29,8 @@ vec3 calculatePointLight(PointLight light, vec3 normal, vec3 fragmentPos) {
 void main(void) {
   vec3 norm = normalize(vNormal);
 
-  PointLight purpleLight = PointLight(vec3(-5.0, -5.0, 5.0), vec3(0, 0, 0), vec3(0.59, 0, 1), 1.0, 0.3, 0.06);
-  PointLight blueLight = PointLight(vec3(5.0, 5.0, 5.0), vec3(0, 0, 0), vec3(0, 0.14, 0.37), 1.0, 0.3, 0.10);
+  PointLight purpleLight = PointLight(vec3(-5.0, -5.0, 5.0), vec3(0.2, 0.2, 0.2), vec3(0.59, 0, 1), 1.0, 0.05, 0.005);
+  PointLight blueLight = PointLight(vec3(5.0, 5.0, 5.0), vec3(0.2, 0.2, 0.2), vec3(0, 0.14, 0.37), 1.0, 0.05, 0.005);
 
   vec3 lightCalc1 = calculatePointLight(purpleLight, norm, vFragPos);
   vec3 lightCalc2 = calculatePointLight(blueLight, norm, vFragPos);

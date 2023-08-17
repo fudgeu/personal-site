@@ -4,11 +4,19 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-  --page-section-padding: 3em;
-  --page-section-padding-left: 13em;
-  --border-radius: 0.75em;
+  --page-section-padding: 3rem;
+  --page-section-padding-left: 13rem;
+  --border-radius: 0.625rem;
 	--border-color: #ffffff10;
 	--container-bg-color: #ffffff07;
+
+  --page-bkg-color: #ffffff;
+  --font-color: #222222;
+  --gradient-text: linear-gradient(var(--font-color), #6c6c6c);
+  --button-text-color: #ffffff;
+  --button-color: linear-gradient(#8B81FF, #7C71FF);
+  --navbar-background: #efefef40;
+  --seperator-color: #56565633
 }
 
 @media (prefers-color-scheme: dark) {

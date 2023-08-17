@@ -4,23 +4,21 @@
   height: 100%;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
-  background: linear-gradient(52deg, #0d0017, #000000, #000917);
+  background-color: var(--page-bkg-color);
+  color: var(--font-color);
 	scroll-behavior: smooth;
 }
 
 .pageSection {
   padding: var(--page-section-padding);
-  padding-left: var(--page-section-padding-left);
   min-height: 100%;
   scroll-snap-align: start;
 	z-index: 20;
 }
 
-.splitPageSection {
-  /*padding: var(--page-section-padding);
-  padding-left: var(--page-section-padding-left);*/
-	padding: var(--page-section-padding) 0;
+.section {
   min-height: 100%;
+  overflow-y: scroll;
   scroll-snap-align: start;
 	transition: transform 0.2s, opacity 0.2s;
 	z-index: 20;
@@ -36,18 +34,30 @@
   flex-direction: column;
   min-height: 100%;
   justify-content: center;
+  padding-left: 50%;
+  max-width:fit-content;
 }
 
 .nameTag {
-  font-weight: 800;
-  background-image: linear-gradient(180deg, #ffffff, #ffffff, #999999);
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.nameText {
+  font-weight: 900;
+  background-image: var(--gradient-text);
   background-clip: text;
   color: transparent;
 }
 
 .nameTagSubtext {
-  padding-left: 0.25em;
-  color: #aaaaaa;
+  max-width: 28rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 0.25rem;
+  color: var(--font-color)
 }
 
 .nameTagSubtext>h2 {
@@ -55,23 +65,48 @@
   font-weight: normal;
 }
 
+.resumeButtonContainer {
+  align-self: flex-end
+}
+
 /* about section */
 
-.aboutContent {
+.aboutSection {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  justify-content: center;
+  padding: var(--page-section-padding) 25rem;
+}
+
+.aboutSection>h2 {
+  align-self: flex-end;
+}
+
+.aboutArticles {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 5rem 0;
+}
+
+.separator {
+  width: 100%;
+  height: 2px;
+  background-color: var(--seperator-color);
 }
 
 /* projects section */
 
-.projectsContent {
+.projectsSection {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  justify-content: center;
-	transition: transform 0.2s, opacity 0.2s, filter 0.2s;
+  padding: var(--page-section-padding) 25rem;
+}
+
+.projectArticles {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 5rem 0;
 }
 
 .projectsContent-entering, .projectsContent-entered {
