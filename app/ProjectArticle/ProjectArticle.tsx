@@ -2,6 +2,7 @@
 import clsx from 'clsx';
 import styles from './styles.module.css';
 import Button from '../components/Button/Button';
+import SmallButton from '../components/SmallButton/SmallButton';
 
 export enum Alignment {
   LEFT,
@@ -29,9 +30,11 @@ export default function ProjectArticle({
       }
     >
       <div className={styles.description}>
-        <img src={logoSrc} alt="" />
+        <img className={styles.logo} src={logoSrc} alt="" />
         {children}
-        <Button label="see more" onClick={() => {}} />
+        <div>
+          <SmallButton label="see more" onClick={() => {}} />
+        </div>
       </div>
       <div className={styles.thumbnail}>
         <img src={thumbnailSrc} alt={thumbnailAlt} />

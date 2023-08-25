@@ -1,16 +1,57 @@
 .container {
     position: relative;
-    width: 100%;
 }
 
 .circle1 {
     position: absolute;
-    width: 120vh;
+    width: 60vh;
     height: 120vh;
-    top: calc(60vh - var(--page-section-padding));
-    left: calc(-60vh - var(--page-section-padding));
+    bottom: -160vh;
+    left: 0;
 
-    border-radius: 1000px;
-    background: radial-gradient(49.94% 49.94% at 49.94% 50.06%, #8B81FF 0%, rgba(80, 65, 255, 0.00) 100%);
+    background: radial-gradient(circle farthest-side at left, var(--circle-color-1-inner) 0%, var(--circle-color-1-outer) 100%);
+}
 
+.circle2 {
+    position: absolute;
+    width: 50vh;
+    height: 100vh;
+    bottom: -250vh;
+    right: 0vh;
+
+    background: radial-gradient(circle farthest-side at right, var(--circle-color-2-inner) 0%, var(--circle-color-2-outer) 100%);
+
+}
+
+.circle3 {
+    position: absolute;
+    width: 70vh;
+    height: 140vh;
+    bottom: -470vh;
+    right: 0vh;
+
+    background: radial-gradient(circle farthest-side at right, var(--circle-color-1-inner) 0%, var(--circle-color-1-outer) 100%);
+}
+
+@media (max-width: 700px) {
+	.circle1 {
+        width: 30vh;
+        height: 60vh;
+        bottom: -130vh;
+        left: 0;
+	}
+
+    .circle2 {
+        width: 25vh;
+        height: 50vh;
+        bottom: -225vh;
+        right: 0vh;
+    }
+
+    .circle3 {
+        width: 35vh;
+        height: 70vh;
+        bottom: -435vh;
+        right: 0vh;
+    }
 }

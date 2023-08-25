@@ -7,9 +7,7 @@ import useTransition from 'react-transition-state';
 import { useInView } from 'react-intersection-observer';
 import styles from './page.module.css';
 import NavBar from './components/navbar/navbar';
-import ProjectCard from './components/ProjectCard/projectCard';
 import ProjectModal, { Sources } from './components/ProjectModal/ProjectModal';
-import transitionStyle from './util/TransitionStyleMap';
 import LabelWithImg from './components/LabelWithImg/LabelWithImg';
 import GLView from './components/GLView/GLView';
 import Button from './components/Button/Button';
@@ -17,6 +15,7 @@ import BackgroundAmbience from './components/BackgroundAmbience/BackgroundAmbien
 import AboutArticle from './components/AboutArticle/AboutArticle';
 import AdaptableBullets from './components/AdaptableBullets/AdaptableBullets';
 import ProjectArticle, { Alignment } from './ProjectArticle/ProjectArticle';
+import useWindowDimensions from './hooks/useWindowDimensions';
 
 const inViewOptions = {
   root: null,
@@ -36,10 +35,23 @@ export default function Home() {
   const [currentModal, setCurrentModal] = useState(Modals.NONE);
   const [showNavBar, setShowNavBar] = useState(true);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const mainRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
   const { ref: homeRef, inView: homeInView } = useInView(inViewOptions);
   const { ref: aboutRef, inView: aboutInView } = useInView(inViewOptions);
   const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions);
   const { ref: contactRef, inView: contactInView } = useInView(inViewOptions);
+
+  const { width, height } = useWindowDimensions();
+  const [isMobile, setMobile] = useState(true);
+
+  useEffect(() => {
+    if (width <= 800) {
+      setMobile(true);
+      return;
+    }
+    setMobile(false);
+  },
+  [width]);
 
   const [{ status }, toggle] = useTransition({
     timeout: 200,
@@ -47,8 +59,6 @@ export default function Home() {
   });
 
   useEffect(() => toggle(true), [toggle]);
-
-  const mainRef = useRef<HTMLDivElement>() as React.MutableRefObject<HTMLDivElement>;
 
   // Handle scroll
   const handleScroll = () => {
@@ -83,7 +93,16 @@ export default function Home() {
   return (
     <main className={styles.main} ref={mainRef}>
 
-      <GLView scrollPosition={scrollPosition} />
+      {!isMobile
+      && (
+      <GLView
+        scrollPosition={scrollPosition}
+        pageWidth={width}
+        pageHeight={height}
+      />
+      )}
+
+      <BackgroundAmbience />
 
       <section id="home" className={styles.section} ref={homeRef}>
         <header className={styles.homeContent}>
@@ -167,6 +186,7 @@ export default function Home() {
           <h2>projects</h2>
           <span className={styles.separator} />
           <div className={styles.projectArticles}>
+
             <ProjectArticle
               logoSrc="classabull-logo.png"
               thumbnailSrc="classabull1.png"
@@ -175,13 +195,32 @@ export default function Home() {
             >
               A better way for USF students to build their class schedule
             </ProjectArticle>
+
+            <ProjectArticle
+              logoSrc="classabull-logo.png"
+              thumbnailSrc="classabull1.png"
+              thumbnailAlt="Test"
+              alignment={Alignment.RIGHT}
+            >
+              A better way for USF students to build their class schedule
+            </ProjectArticle>
+
+            <ProjectArticle
+              logoSrc="classabull-logo.png"
+              thumbnailSrc="classabull1.png"
+              thumbnailAlt="Test"
+              alignment={Alignment.LEFT}
+            >
+              A better way for USF students to build their class schedule
+            </ProjectArticle>
+
           </div>
         </div>
       </section>
 
       <section id="contact" className={styles.section} ref={contactRef}>
-        <article className={styles.contactContent}>
-          <h2>contact</h2>
+        <article className={styles.contactSection}>
+          <h2>contact me!</h2>
           <p>
             You can reach out to me regarding just about anything - from requests to just wanting to
             talk! Do keep in mind that I&apos;ll likely respond quicker via Discord however :&#41;

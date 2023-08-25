@@ -29,18 +29,12 @@
 
 /* Non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-	.navItemContainer {
-		border: solid 2px transparent;
-		transition: border 0.1s, transform 0.1s, background-color 0.1s;
-	}
 
 	.navItemContainer:hover {
-		border: solid 2px var(--border-color);
-		background-color: var(--container-bg-color);
+		transform: scale(1.1);
 	}
 
 	.navItemContainer:active {
-		transform: scale(0.95);
-		border: solid 2px var(--border-color);
+		transform: scale(1);
 	}
 }

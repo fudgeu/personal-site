@@ -2,14 +2,14 @@
     all: unset;
     flex-grow: 0;
     border-radius: 0.65rem;
-    padding-left: 1.8rem;
-    padding-right: 1.8rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     color: var(--button-text-color);
     background: var(--button-color);
     border: 2px solid rgba(255, 255, 255, 0.50);
-    font-size: 1.5rem;
+    font-size: 1rem;
     transition: transform 0.15s;
 }
 

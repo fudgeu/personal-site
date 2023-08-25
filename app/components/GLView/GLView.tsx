@@ -14,7 +14,9 @@ import { MeshWithBuffers, OBJ } from 'webgl-obj-loader';
 import styles from './style.module.css';
 
 export type GLViewProps = {
-  scrollPosition: number
+  scrollPosition: number,
+  pageWidth: number,
+  pageHeight: number,
 };
 
 type ModelResult = {
@@ -22,7 +24,7 @@ type ModelResult = {
   id: string
 };
 
-export default function GLView({ scrollPosition }: GLViewProps) {
+export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLViewProps) {
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
   const [lastScrollPos, setLastScrollPos] = useState(0);
 
@@ -104,23 +106,31 @@ export default function GLView({ scrollPosition }: GLViewProps) {
         return;
       }
 
+      const cube = models.get('cube');
+      if (cube === undefined) {
+        console.log('Could not load world, cube model not loaded');
+        return;
+      }
+
+      console.log(`width ${pageWidth}`);
+      const xModifier = 1;
       const cube1: Object3D = createObject(sphere);
       mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI / 2, [1, 1, 0]);
       mat4.scale(cube1.localPosition, cube1.localPosition, [0.75, 0.75, 0.75]);
       const cube1Pos = mat4.create();
-      mat4.translate(cube1Pos, cube1Pos, [-5.5, -0.5, -10]);
+      mat4.translate(cube1Pos, cube1Pos, [xModifier * -5.5, -0.3, -10]);
 
       const cube2: Object3D = createObject(sphere);
       mat4.rotate(cube2.localPosition, cube2.localPosition, Math.PI / 2, [0, 1, 1]);
       mat4.scale(cube2.localPosition, cube2.localPosition, [0.75, 0.75, 0.75]);
       const cube2Pos = mat4.create();
-      mat4.translate(cube2Pos, cube2Pos, [-1.75, -0.5, -6]);
+      mat4.translate(cube2Pos, cube2Pos, [xModifier * -1.75, -0.3, -6]);
 
       const cube3: Object3D = createObject(sphere);
       mat4.rotate(cube3.localPosition, cube3.localPosition, Math.PI / 2, [1, 1, 1]);
       mat4.scale(cube3.localPosition, cube3.localPosition, [0.5, 0.5, 0.5]);
       const cube3Pos = mat4.create();
-      mat4.translate(cube3Pos, cube3Pos, [-3.4, 0.5, -8]);
+      mat4.translate(cube3Pos, cube3Pos, [xModifier * -3.4, 0.7, -8]);
 
       // about page
       const sphere4: Object3D = createObject(sphere);
@@ -135,13 +145,41 @@ export default function GLView({ scrollPosition }: GLViewProps) {
       const sphere5Pos = mat4.create();
       mat4.translate(sphere5Pos, sphere5Pos, [5.5, -6, -8]);
 
+      // projects page
+      const sphere6: Object3D = createObject(sphere);
+      mat4.rotate(sphere6.localPosition, sphere6.localPosition, Math.PI / 2, [1, 1, 1]);
+      mat4.scale(sphere6.localPosition, sphere6.localPosition, [0.5, 0.5, 0.5]);
+      const sphere6Pos = mat4.create();
+      mat4.translate(sphere6Pos, sphere6Pos, [5.7, -15, -8]);
+
+      const cube7: Object3D = createObject(cube);
+      mat4.rotate(cube7.localPosition, cube7.localPosition, Math.PI / 2, [1, 0.5, 1]);
+      mat4.scale(cube7.localPosition, cube7.localPosition, [0.5, 0.5, 0.5]);
+      const cube7Pos = mat4.create();
+      mat4.translate(cube7Pos, cube7Pos, [-5.7, -20, -8]);
+
+      // contact page
+      const contSphere1: Object3D = createObject(sphere);
+      mat4.rotate(contSphere1.localPosition, contSphere1.localPosition, Math.PI / 2, [1, 1, 1]);
+      mat4.scale(contSphere1.localPosition, contSphere1.localPosition, [1, 1, 1]);
+      const contSphere1Pos = mat4.create();
+      mat4.translate(contSphere1Pos, contSphere1Pos, [-2.5, -26, -6]);
+
+      const contSphere2: Object3D = createObject(cube);
+      mat4.rotate(contSphere2.localPosition, contSphere2.localPosition, Math.PI / 2, [0, 0, 0]);
+      mat4.scale(contSphere2.localPosition, contSphere2.localPosition, [0.75, 0.75, 0.75]);
+      const contSphere2Pos = mat4.create();
+      mat4.translate(contSphere2Pos, contSphere2Pos, [-2, -25, -8]);
+
       addWorldObject(cube1, cube1Pos);
       addWorldObject(cube2, cube2Pos);
       addWorldObject(cube3, cube3Pos);
       addWorldObject(sphere4, sphere4Pos);
       addWorldObject(sphere5, sphere5Pos);
-
-
+      addWorldObject(sphere6, sphere6Pos);
+      addWorldObject(cube7, cube7Pos);
+      addWorldObject(contSphere1, contSphere1Pos);
+      addWorldObject(contSphere2, contSphere2Pos);
 
       // add random shapes into the background
       const modelsArray = Array.from(models.values());
@@ -159,8 +197,6 @@ export default function GLView({ scrollPosition }: GLViewProps) {
 
         const objPos = mat4.create();
         mat4.translate(objPos, objPos, [x, y, z]);
-
-        //addWorldObject(worldObj, objPos);
       }
     },
     [],
@@ -177,6 +213,8 @@ export default function GLView({ scrollPosition }: GLViewProps) {
     // load models, then world
     Promise.all([
       loadModel(gl, 'sphere', './sphere.obj'),
+      loadModel(gl, 'cube', './cube.obj'),
+
     ])
       .then((models) => {
         // register each loaded model
@@ -210,8 +248,9 @@ export default function GLView({ scrollPosition }: GLViewProps) {
   // Handle scroll
   useEffect(() => {
     const offset = scrollPosition - lastScrollPos;
+    const scrollModifier = 0.01 * (860 / pageHeight);
     getWorldObjects().forEach(({ object, worldPosition }: WorldObject) => {
-      mat4.translate(worldPosition, worldPosition, [0, 0.01 * offset, 0]);
+      mat4.translate(worldPosition, worldPosition, [0, scrollModifier * offset, 0]);
       mat4.rotate(object.localPosition, object.localPosition, 0.0003 * offset, [1, 1, 0]);
     });
     setLastScrollPos(scrollPosition);

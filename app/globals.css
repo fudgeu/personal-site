@@ -15,8 +15,18 @@
   --gradient-text: linear-gradient(var(--font-color), #6c6c6c);
   --button-text-color: #ffffff;
   --button-color: linear-gradient(#8B81FF, #7C71FF);
-  --navbar-background: #efefef40;
-  --seperator-color: #56565633
+  --button-color-hovered: linear-gradient(#7268e2, #5e53dc);
+  --navbar-bkg-color: #efefef40;
+  --seperator-color: #56565633;
+
+  --circle-color-1-inner: #b1aaff;
+  --circle-color-1-outer: #b1aaff00;
+  --circle-color-2-inner: #d7aeff;
+  --circle-color-2-outer: #d7aeff00;
+
+
+  --mobile-bottom-padding: 10rem;
+  --mobile-top-padding: 4rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -115,11 +125,11 @@ h3 {
   }
 
   h1 {
-    font-size: 4em;
+    font-size: 4.5em;
   }
 
   h2 {
-    font-size: 2.5em;
+    font-size: 3.5em;
   }
 
   h3 {

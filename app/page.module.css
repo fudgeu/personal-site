@@ -17,10 +17,11 @@
 }
 
 .section {
+  display: flex;
   min-height: 100%;
-  overflow-y: scroll;
   scroll-snap-align: start;
 	transition: transform 0.2s, opacity 0.2s;
+  justify-content: center;
 	z-index: 20;
 }
 
@@ -35,7 +36,8 @@
   min-height: 100%;
   justify-content: center;
   padding-left: 50%;
-  max-width:fit-content;
+  padding-right: var(--page-section-padding);
+  max-width: fit-content;
 }
 
 .nameTag {
@@ -74,11 +76,16 @@
 .aboutSection {
   display: flex;
   flex-direction: column;
-  padding: var(--page-section-padding) 25rem;
+  padding: var(--page-section-padding);
+  max-width: 40rem;
+  overflow-y: scroll;
 }
 
 .aboutSection>h2 {
   align-self: flex-end;
+  background-image: var(--gradient-text);
+  background-clip: text;
+  color: transparent;
 }
 
 .aboutArticles {
@@ -89,8 +96,9 @@
 }
 
 .separator {
+  display:block;
   width: 100%;
-  height: 2px;
+  min-height: 2px;
   background-color: var(--seperator-color);
 }
 
@@ -99,13 +107,21 @@
 .projectsSection {
   display: flex;
   flex-direction: column;
-  padding: var(--page-section-padding) 25rem;
+  padding: var(--page-section-padding);
+  width: min-content;
+  overflow-y: scroll;
+}
+
+.projectsSection>h2 {
+  background-image: var(--gradient-text);
+  background-clip: text;
+  color: transparent;
 }
 
 .projectArticles {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 8rem;
   padding: 5rem 0;
 }
 
@@ -121,14 +137,26 @@
 
 /* contact section */
 
-.contactContent {
+.contactSection {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-	max-width: 50em;
   justify-content: center;
 	gap: 1em;
 	text-align: justify;
+  min-height: 100%;
+  padding-left: 50%;
+  padding-right: var(--page-section-padding);
+  max-width: fit-content;
+}
+
+.contactSection>h2 {
+  background-image: var(--gradient-text);
+  background-clip: text;
+  color: transparent;
+}
+
+.contactSection>p {
+  max-width: 25rem;
 }
 
 /* Enable hover only on non-touch devices */
@@ -163,6 +191,34 @@
 	.prjCardImg {
 		display: none;
 	}
+
+  .homeContent {
+    padding: var(--page-section-padding);
+  }
+
+  .aboutSection {
+    max-width: 100%;
+    padding-top: var(--mobile-top-padding);
+  }
+
+  .aboutArticles {
+    padding-bottom: var(--mobile-bottom-padding);
+  }
+
+  .projectsSection {
+    width: 100%;
+    padding-top: var(--mobile-top-padding);
+  }
+
+  .projectArticles {
+    padding-bottom: var(--mobile-bottom-padding);
+  }
+
+  .contactSection {
+    padding: var(--page-section-padding);
+    padding-bottom: var(--mobile-bottom-padding);
+
+  }
 }
 
 @media (max-height: 800px) {

@@ -1,15 +1,38 @@
 .articleLeftAligned {
-
+  display: flex;
+  flex-direction: row;
+  gap: 4rem;
 }
 
 .articleRightAligned {
-  
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 4rem;
+}
+
+.logo {
+  height: 4rem;
 }
 
 .description {
-
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  width: 15rem;
 }
 
-.thumbnail {
+.thumbnail>img {
+  height: 15rem;
+  border-radius: var(--border-radius);
+}
+
+@media (max-width: 700px) {
+  .articleRightAligned {
+    flex-direction: row;
+  }
   
+  .thumbnail {
+    display: none;
+  }
 }
