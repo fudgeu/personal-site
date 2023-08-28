@@ -142,7 +142,6 @@
   flex-direction: column;
   justify-content: center;
 	gap: 1em;
-	text-align: justify;
   min-height: 100%;
   padding-left: 50%;
   padding-right: var(--page-section-padding);

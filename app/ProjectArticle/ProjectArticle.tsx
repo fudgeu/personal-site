@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import clsx from 'clsx';
 import styles from './styles.module.css';
-import Button from '../components/Button/Button';
 import SmallButton from '../components/SmallButton/SmallButton';
 
 export enum Alignment {
@@ -14,11 +13,12 @@ type ProjectProps = {
   thumbnailSrc: string,
   thumbnailAlt: string,
   alignment: Alignment,
+  onExpand: () => void,
   children: React.ReactNode
 };
 
 export default function ProjectArticle({
-  logoSrc, thumbnailSrc, thumbnailAlt, alignment, children,
+  logoSrc, thumbnailSrc, thumbnailAlt, alignment, onExpand, children,
 }: ProjectProps) {
   return (
     <article
@@ -33,7 +33,7 @@ export default function ProjectArticle({
         <img className={styles.logo} src={logoSrc} alt="" />
         {children}
         <div>
-          <SmallButton label="see more" onClick={() => {}} />
+          <SmallButton label="see more" onClick={onExpand} />
         </div>
       </div>
       <div className={styles.thumbnail}>

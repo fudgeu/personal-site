@@ -8,21 +8,18 @@ type LinkButtonProps = {
   label: string,
   img: string,
   alt: string,
-  isHyperlink?: boolean,
-  onClick: () => void
+  url: string,
 };
 
 export default function LinkButton({
-  label, img, alt, isHyperlink, onClick,
+  label, img, alt, url,
 }: LinkButtonProps) {
   return (
-    <button type="button" className={clsx({ [styles.linkButton]: true, [styles.hyperlink]: isHyperlink })} onClick={onClick}>
-      {img !== '' && (<Image className={styles.linkButtonImg} src={img} width={25} height={25} alt={alt} />)}
-      {label !== '' && (<p>{label}</p>)}
-    </button>
+    <a href={url}>
+      <button className={styles.linkButton} type="button">
+        {img !== '' && (<Image className={styles.linkButtonImg} src={img} width={25} height={25} alt={alt} />)}
+        <p>{label}</p>
+      </button>
+    </a>
   );
 }
-
-LinkButton.defaultProps = {
-  isHyperlink: false,
-};

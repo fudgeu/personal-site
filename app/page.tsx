@@ -192,6 +192,7 @@ export default function Home() {
               thumbnailSrc="classabull1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
+              onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
               A better way for USF students to build their class schedule
             </ProjectArticle>
@@ -201,6 +202,7 @@ export default function Home() {
               thumbnailSrc="classabull1.png"
               thumbnailAlt="Test"
               alignment={Alignment.RIGHT}
+              onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
               A better way for USF students to build their class schedule
             </ProjectArticle>
@@ -210,6 +212,7 @@ export default function Home() {
               thumbnailSrc="classabull1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
+              onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
               A better way for USF students to build their class schedule
             </ProjectArticle>
