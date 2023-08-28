@@ -14,7 +14,7 @@ import Button from './components/Button/Button';
 import BackgroundAmbience from './components/BackgroundAmbience/BackgroundAmbience';
 import AboutArticle from './components/AboutArticle/AboutArticle';
 import AdaptableBullets from './components/AdaptableBullets/AdaptableBullets';
-import ProjectArticle, { Alignment } from './ProjectArticle/ProjectArticle';
+import ProjectArticle, { Alignment } from './components/ProjectArticle/ProjectArticle';
 import useWindowDimensions from './hooks/useWindowDimensions';
 
 const inViewOptions = {

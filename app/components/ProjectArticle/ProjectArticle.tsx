@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import clsx from 'clsx';
 import styles from './styles.module.css';
-import SmallButton from '../components/SmallButton/SmallButton';
+import SmallButton from '../SmallButton/SmallButton';
 
 export enum Alignment {
   LEFT,
