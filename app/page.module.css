@@ -79,6 +79,12 @@
   padding: var(--page-section-padding);
   max-width: 40rem;
   overflow-y: scroll;
+	-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.aboutSection::-webkit-scrollbar {
+	display: none;
 }
 
 .aboutSection>h2 {
@@ -87,6 +93,7 @@
   background-clip: text;
   color: transparent;
 }
+
 
 .aboutArticles {
   display: flex;
@@ -110,6 +117,12 @@
   padding: var(--page-section-padding);
   width: min-content;
   overflow-y: scroll;
+	-ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.projectsSection::-webkit-scrollbar {
+	display: none;
 }
 
 .projectsSection>h2 {
