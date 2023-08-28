@@ -204,7 +204,7 @@ export default function Home() {
               alignment={Alignment.RIGHT}
               onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
-              A better way for USF students to build their class schedule
+              Take control of Minecraft&apos;s in-game music
             </ProjectArticle>
 
             <ProjectArticle
@@ -214,7 +214,7 @@ export default function Home() {
               alignment={Alignment.LEFT}
               onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
-              A better way for USF students to build their class schedule
+              Quickly and automatically change Discord&apos;s font
             </ProjectArticle>
 
           </div>

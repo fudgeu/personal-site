@@ -1,0 +1,26 @@
+.imgButton {
+  all: unset;
+  display: flex;
+  transition: transform 0.15s;
+}
+
+.imgButton>img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+	.imgButton:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+	}
+
+	.imgButton:hover>p {
+		text-decoration: underline;
+	}
+
+	.imgButton:active {
+			transform: scale(1);
+	}
+}

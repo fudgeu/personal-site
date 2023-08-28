@@ -9,6 +9,7 @@ import GalImage from '../ImageGallery/galImage';
 import ImageGallery from '../ImageGallery/imageGallery';
 import LinkButton from '../LinkButton/LinkButton';
 import styles from './style.module.css';
+import ImgButton from '../ImgButton/ImgButton';
 
 type Source = {
   img: string,
@@ -51,12 +52,12 @@ export default function ProjectModal(
 
   return (
     <div className={transitionStyle(styles, 'container', status)}>
-      <div className={styles.mobileScrollContainer}>
+      <div className={transitionStyle(styles, 'mobileScrollContainer', status)}>
         <div className={transitionStyle(styles, 'projectModal', status)}>
 
           <div className={styles.topBar}>
             <img className={styles.logo} src={logo} alt="Playlist" />
-            <LinkButton label="" img="/close.svg" alt="Close" onClick={onClose} />
+            <ImgButton src="/close.svg" alt="Close" onClick={onClose} />
           </div>
 
           <ImageGallery>

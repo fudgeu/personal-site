@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import clsx from 'clsx';
 import styles from './style.module.css';
 
 type LinkButtonProps = {
