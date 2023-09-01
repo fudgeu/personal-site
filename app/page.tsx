@@ -188,31 +188,31 @@ export default function Home() {
           <div className={styles.projectArticles}>
 
             <ProjectArticle
-              logoSrc="classabull-logo.png"
-              thumbnailSrc="classabull1.png"
+              logoSrc="https://i.imgur.com/AtCmxQF.png"
+              thumbnailSrc="playlist1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
+              onExpand={() => toggleModal(true, Modals.PLAYLIST)}
+            >
+              Take control of Minecraft&apos;s in-game music
+            </ProjectArticle>
+
+            <ProjectArticle
+              logoSrc="classabull-logo-lightmode.png"
+              thumbnailSrc="classabull1.png"
+              thumbnailAlt="Test"
+              alignment={Alignment.RIGHT}
               onExpand={() => toggleModal(true, Modals.CLASSABULL)}
             >
               A better way for USF students to build their class schedule
             </ProjectArticle>
 
             <ProjectArticle
-              logoSrc="classabull-logo.png"
-              thumbnailSrc="classabull1.png"
-              thumbnailAlt="Test"
-              alignment={Alignment.RIGHT}
-              onExpand={() => toggleModal(true, Modals.CLASSABULL)}
-            >
-              Take control of Minecraft&apos;s in-game music
-            </ProjectArticle>
-
-            <ProjectArticle
-              logoSrc="classabull-logo.png"
-              thumbnailSrc="classabull1.png"
+              logoSrc="refont-logo.png"
+              thumbnailSrc="refont1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
-              onExpand={() => toggleModal(true, Modals.CLASSABULL)}
+              onExpand={() => toggleModal(true, Modals.REFONT)}
             >
               Quickly and automatically change Discord&apos;s font
             </ProjectArticle>
