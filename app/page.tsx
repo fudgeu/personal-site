@@ -9,7 +9,6 @@ import NavBar from './components/navbar/navbar';
 import ProjectModal, { Sources } from './components/ProjectModal/ProjectModal';
 import LabelWithImg from './components/LabelWithImg/LabelWithImg';
 import GLView from './components/GLView/GLView';
-import Button from './components/Button/Button';
 import BackgroundAmbience from './components/BackgroundAmbience/BackgroundAmbience';
 import AboutArticle from './components/AboutArticle/AboutArticle';
 import AdaptableBullets from './components/AdaptableBullets/AdaptableBullets';
@@ -40,7 +39,7 @@ export default function Home() {
   const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions);
   const { ref: contactRef, inView: contactInView } = useInView(inViewOptions);
 
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [isMobile, setMobile] = useState(true);
 
   useEffect(() => {
@@ -87,8 +86,6 @@ export default function Home() {
       && (
       <GLView
         scrollPosition={scrollPosition}
-        pageWidth={width}
-        pageHeight={height}
       />
       )}
 
@@ -104,9 +101,6 @@ export default function Home() {
               aka <b>patrick koss</b> &bull; an aspiring web and game
               developer, i love creating software everyone can benefit from
             </p>
-          </div>
-          <div className={styles.resumeButtonContainer}>
-            <Button label="see my resume" onClick={() => {}} />
           </div>
         </header>
       </section>

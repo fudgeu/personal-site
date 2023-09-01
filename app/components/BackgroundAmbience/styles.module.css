@@ -16,7 +16,7 @@
     position: absolute;
     width: 50vh;
     height: 100vh;
-    bottom: -275vh;
+    bottom: -250vh;
     right: 0vh;
 
     background: radial-gradient(circle farthest-side at right, var(--circle-color-2-inner) 0%, var(--circle-color-2-outer) 100%);
@@ -27,7 +27,7 @@
     position: absolute;
     width: 70vh;
     height: 140vh;
-    bottom: -465vh;
+    bottom: -370vh;
     left: 0;
 
     background: radial-gradient(circle farthest-side at left, var(--circle-color-1-inner) 0%, var(--circle-color-1-outer) 100%);

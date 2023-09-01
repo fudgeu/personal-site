@@ -15,8 +15,6 @@ import styles from './style.module.css';
 
 export type GLViewProps = {
   scrollPosition: number,
-  pageWidth: number,
-  pageHeight: number,
 };
 
 type ModelResult = {
@@ -24,8 +22,10 @@ type ModelResult = {
   id: string
 };
 
-export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLViewProps) {
+export default function GLView({ scrollPosition }: GLViewProps) {
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
+  const [scrollModifier, setScrollModifier] = useState(0.01);
+  const [totalOffset, setTotalOffset] = useState(0);
   const [lastScrollPos, setLastScrollPos] = useState(0);
 
   const ref = useRef<HTMLCanvasElement>(null);
@@ -112,7 +112,6 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
         return;
       }
 
-      console.log(`width ${pageWidth}`);
       const xModifier = 1;
       const cube1: Object3D = createObject(sphere);
       mat4.rotate(cube1.localPosition, cube1.localPosition, Math.PI / 2, [1, 1, 0]);
@@ -146,30 +145,30 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
       mat4.translate(sphere5Pos, sphere5Pos, [5.5, -6, -8]);
 
       // projects page
-      const sphere6: Object3D = createObject(sphere);
+      const sphere6: Object3D = createObject(cube);
       mat4.rotate(sphere6.localPosition, sphere6.localPosition, Math.PI / 2, [1, 1, 1]);
       mat4.scale(sphere6.localPosition, sphere6.localPosition, [0.5, 0.5, 0.5]);
       const sphere6Pos = mat4.create();
-      mat4.translate(sphere6Pos, sphere6Pos, [5.7, -15, -8]);
+      mat4.translate(sphere6Pos, sphere6Pos, [5.5, -20, -8]);
 
-      const cube7: Object3D = createObject(cube);
+      const cube7: Object3D = createObject(sphere);
       mat4.rotate(cube7.localPosition, cube7.localPosition, Math.PI / 2, [1, 0.5, 1]);
       mat4.scale(cube7.localPosition, cube7.localPosition, [0.5, 0.5, 0.5]);
       const cube7Pos = mat4.create();
-      mat4.translate(cube7Pos, cube7Pos, [-5.7, -20, -8]);
+      mat4.translate(cube7Pos, cube7Pos, [-5.5, -15, -8]);
 
       // contact page
       const contSphere1: Object3D = createObject(sphere);
       mat4.rotate(contSphere1.localPosition, contSphere1.localPosition, Math.PI / 2, [1, 1, 1]);
       mat4.scale(contSphere1.localPosition, contSphere1.localPosition, [1, 1, 1]);
       const contSphere1Pos = mat4.create();
-      mat4.translate(contSphere1Pos, contSphere1Pos, [-2.5, -36, -6]);
+      mat4.translate(contSphere1Pos, contSphere1Pos, [-2.5, -26.5, -6]);
 
       const contSphere2: Object3D = createObject(cube);
       mat4.rotate(contSphere2.localPosition, contSphere2.localPosition, Math.PI / 2, [0, 0, 0]);
       mat4.scale(contSphere2.localPosition, contSphere2.localPosition, [0.75, 0.75, 0.75]);
       const contSphere2Pos = mat4.create();
-      mat4.translate(contSphere2Pos, contSphere2Pos, [-2, -35, -8]);
+      mat4.translate(contSphere2Pos, contSphere2Pos, [-2, -25.5, -8]);
 
       addWorldObject(cube1, cube1Pos);
       addWorldObject(cube2, cube2Pos);
@@ -214,7 +213,6 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
     Promise.all([
       loadModel(gl, 'sphere', './sphere.obj'),
       loadModel(gl, 'cube', './cube.obj'),
-
     ])
       .then((models) => {
         // register each loaded model
@@ -248,13 +246,14 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
   // Handle scroll
   useEffect(() => {
     const offset = scrollPosition - lastScrollPos;
-    const scrollModifier = 0.01 * (860 / pageHeight);
+    setTotalOffset(totalOffset + offset);
+    // const scrollModifier = 0.01 * (860 / pageHeight);
     getWorldObjects().forEach(({ object, worldPosition }: WorldObject) => {
       mat4.translate(worldPosition, worldPosition, [0, scrollModifier * offset, 0]);
       mat4.rotate(object.localPosition, object.localPosition, 0.0003 * offset, [1, 1, 0]);
     });
     setLastScrollPos(scrollPosition);
-  }, [lastScrollPos, scrollPosition]);
+  }, [lastScrollPos, scrollModifier, scrollPosition]);
 
   // Handle Resize
   useEffect(() => {
@@ -264,7 +263,11 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [scrollModifier]);
+
+  useEffect(() => {
+    setScrollModifier(0.01 * (860 / window.innerHeight));
+  }, [setScrollModifier]);
 
   return (
     <div className={styles.container}>
