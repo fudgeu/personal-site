@@ -39,18 +39,6 @@ export default function Home() {
   const { ref: projectsRef, inView: projectsInView } = useInView(inViewOptions);
   const { ref: contactRef, inView: contactInView } = useInView(inViewOptions);
 
-  const { width } = useWindowDimensions();
-  const [isMobile, setMobile] = useState(true);
-
-  useEffect(() => {
-    if (width <= 800) {
-      setMobile(true);
-      return;
-    }
-    setMobile(false);
-  },
-  [width]);
-
   // Handle scroll
   const handleScroll = () => {
     const position = mainRef.current.scrollTop;
@@ -82,12 +70,9 @@ export default function Home() {
   return (
     <main className={styles.main} ref={mainRef}>
 
-      {!isMobile
-      && (
       <GLView
         scrollPosition={scrollPosition}
       />
-      )}
 
       <BackgroundAmbience />
 

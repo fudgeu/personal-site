@@ -16,3 +16,10 @@
 	z-index: 1;
 	background: linear-gradient(52deg, #0d0017, #00000000, #000917)
 }
+
+/* Mobile */
+@media (max-width: 700px) {
+	.container {
+		visibility: hidden;
+	}
+}
