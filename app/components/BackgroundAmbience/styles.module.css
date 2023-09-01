@@ -16,7 +16,7 @@
     position: absolute;
     width: 50vh;
     height: 100vh;
-    bottom: -250vh;
+    bottom: -275vh;
     right: 0vh;
 
     background: radial-gradient(circle farthest-side at right, var(--circle-color-2-inner) 0%, var(--circle-color-2-outer) 100%);
@@ -27,10 +27,10 @@
     position: absolute;
     width: 70vh;
     height: 140vh;
-    bottom: -470vh;
-    right: 0vh;
+    bottom: -465vh;
+    left: 0;
 
-    background: radial-gradient(circle farthest-side at right, var(--circle-color-1-inner) 0%, var(--circle-color-1-outer) 100%);
+    background: radial-gradient(circle farthest-side at left, var(--circle-color-1-inner) 0%, var(--circle-color-1-outer) 100%);
 }
 
 @media (max-width: 700px) {
@@ -51,7 +51,7 @@
     .circle3 {
         width: 35vh;
         height: 70vh;
-        bottom: -435vh;
-        right: 0vh;
+        bottom: -400vh;
+        left: 0vh;
     }
 }

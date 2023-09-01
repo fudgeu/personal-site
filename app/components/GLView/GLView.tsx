@@ -163,13 +163,13 @@ export default function GLView({ scrollPosition, pageWidth, pageHeight }: GLView
       mat4.rotate(contSphere1.localPosition, contSphere1.localPosition, Math.PI / 2, [1, 1, 1]);
       mat4.scale(contSphere1.localPosition, contSphere1.localPosition, [1, 1, 1]);
       const contSphere1Pos = mat4.create();
-      mat4.translate(contSphere1Pos, contSphere1Pos, [-2.5, -26, -6]);
+      mat4.translate(contSphere1Pos, contSphere1Pos, [-2.5, -36, -6]);
 
       const contSphere2: Object3D = createObject(cube);
       mat4.rotate(contSphere2.localPosition, contSphere2.localPosition, Math.PI / 2, [0, 0, 0]);
       mat4.scale(contSphere2.localPosition, contSphere2.localPosition, [0.75, 0.75, 0.75]);
       const contSphere2Pos = mat4.create();
-      mat4.translate(contSphere2Pos, contSphere2Pos, [-2, -25, -8]);
+      mat4.translate(contSphere2Pos, contSphere2Pos, [-2, -35, -8]);
 
       addWorldObject(cube1, cube1Pos);
       addWorldObject(cube2, cube2Pos);

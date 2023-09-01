@@ -3,7 +3,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import useTransition from 'react-transition-state';
 import { useInView } from 'react-intersection-observer';
 import styles from './page.module.css';
 import NavBar from './components/navbar/navbar';
@@ -53,13 +52,6 @@ export default function Home() {
   },
   [width]);
 
-  const [{ status }, toggle] = useTransition({
-    timeout: 200,
-    preEnter: true,
-  });
-
-  useEffect(() => toggle(true), [toggle]);
-
   // Handle scroll
   const handleScroll = () => {
     const position = mainRef.current.scrollTop;
@@ -78,13 +70,11 @@ export default function Home() {
 
   const toggleModal = (newState: boolean, modal: Modals) => {
     if (newState) {
-      toggle(false);
       setShowNavBar(false);
       setTimeout(() => setCurrentModal(modal), 1);
     } else {
       setCurrentModal(modal);
       setTimeout(() => {
-        toggle(true);
         setShowNavBar(true);
       }, 1);
     }
@@ -188,7 +178,7 @@ export default function Home() {
           <div className={styles.projectArticles}>
 
             <ProjectArticle
-              logoSrc="https://i.imgur.com/AtCmxQF.png"
+              logoSrc="playlist-logo-lightmode.png"
               thumbnailSrc="playlist1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
@@ -208,7 +198,7 @@ export default function Home() {
             </ProjectArticle>
 
             <ProjectArticle
-              logoSrc="refont-logo.png"
+              logoSrc="refont-logo-lightmode.png"
               thumbnailSrc="refont1.png"
               thumbnailAlt="Test"
               alignment={Alignment.LEFT}
@@ -223,6 +213,7 @@ export default function Home() {
 
       <section id="contact" className={styles.section} ref={contactRef}>
         <article className={styles.contactSection}>
+          <div className={styles.contactCircle} />
           <h2>contact me!</h2>
           <p>
             You can reach out to me regarding just about anything - from requests to just wanting to
@@ -244,7 +235,7 @@ export default function Home() {
       <ProjectModal
         isOpen={currentModal === Modals.PLAYLIST}
         onClose={() => toggleModal(false, Modals.NONE)}
-        logo="https://i.imgur.com/AtCmxQF.png"
+        logo="playlist-logo-lightmode.png"
         images={['./playlist1.png', './playlist2.png', './playlist3.png']}
         alts={['Main interface', 'Settings menu', 'Add songs to playlist menu']}
         buttons={[
@@ -268,7 +259,7 @@ export default function Home() {
       <ProjectModal
         isOpen={currentModal === Modals.CLASSABULL}
         onClose={() => toggleModal(false, Modals.NONE)}
-        logo="./classabull-logo.png"
+        logo="./classabull-logo-lightmode.png"
         images={['./classabull1.png', './classabull2.png', './classabull3.png']}
         alts={[
           'Classabull interface with a filled schedule',
@@ -297,7 +288,7 @@ export default function Home() {
       <ProjectModal
         isOpen={currentModal === Modals.REFONT}
         onClose={() => toggleModal(false, Modals.NONE)}
-        logo="./refont-logo.png"
+        logo="./refont-logo-lightmode.png"
         images={['./refont1.png', './refont2.png', './refont3.png']}
         alts={['Main page of Refont', 'Refont font selection', 'Refont settings']}
         buttons={[
