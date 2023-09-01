@@ -13,7 +13,6 @@ import BackgroundAmbience from './components/BackgroundAmbience/BackgroundAmbien
 import AboutArticle from './components/AboutArticle/AboutArticle';
 import AdaptableBullets from './components/AdaptableBullets/AdaptableBullets';
 import ProjectArticle, { Alignment } from './components/ProjectArticle/ProjectArticle';
-import useWindowDimensions from './hooks/useWindowDimensions';
 
 const inViewOptions = {
   root: null,
